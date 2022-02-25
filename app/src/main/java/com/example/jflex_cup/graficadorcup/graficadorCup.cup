@@ -1,0 +1,304 @@
+/*SECCIÓN 1: CÓDIGO*/
+/*CODIGO PARA LA CREACIÓN DEL CUP:
+java -jar java-cup-11b.jar -parser GraficadorCup /home/ameri/Escritorio/2022/compis_uno/Graficador/app/src/main/java/com/example/jflex_cup/graficadorcup/graficadorCup.cup
+*/
+
+/* TEXTO PARA PRUEBAS
+Def Barras {
+    titulo: "titulo de prueba";
+    ejex: ["eje 1", "eje 2"];
+    ejey: [3,4+2];
+    unir:[{1,2},{1,1}];
+}
+
+*/
+
+package com.example.jflex_cup.graficadorcup;
+
+import java_cup.runtime.*;
+import com.example.jflex_cup.graficadorflex.GraficadorLexico;
+
+parser code {:
+
+    public GraficadorCup(GraficadorLexico lexer) {
+        super(lexer);
+    }
+
+    public void report_error(String message, Object info) {
+        System.out.println("public void report_error");
+    }
+
+    public void report_fatal_error(String message, Object info) {
+        System.out.println("public void report_fatal_error");
+    }
+
+    public void syntax_error(Symbol cur_token) {
+        System.out.println("El error es el simbolo: " + sym.terminalNames[cur_token.sym]);
+        System.out.println(String.format("En la posicion: %d, %d", cur_token.left, cur_token.right));
+    }
+
+    public void unrecovered_syntax_error(Symbol cur_token) {
+        if (cur_token.sym == sym.EOF) {
+            System.out.println("public void unrecoveredsyntax_error");
+        }
+    }
+
+    int def = 0;
+    public void incrementarDef(){
+        def++;
+        System.out.println(def);
+    }
+
+:}
+
+/*SECCIÓN DE TERMINALES*/
+terminal DEF, BARRAS, PIE, COMA, TITULO, EJEX, EJEY, ETIQUETAS, VALORES, UNIR;
+terminal TIPO, CANTIDAD, PORCENTAJE, TOTAL, EXTRA;
+terminal SUMA, RESTA, MULTIPLICACION, DIVISION, DOS_PUNTOS, PUNTO_COMA, PARENTESIS_A;
+terminal PARENTESIS_C, CORCHETE_A, CORCHETE_C, LLAVE_A, LLAVE_C;
+terminal String CADENA;
+terminal Integer ENTERO;
+terminal Double DECIMAL;
+
+/*SECCIÓN DE NO TERMINALES*/
+non terminal D, G, BA, PA, T, X, Y, U, C, TUP, VAL, /*N,*/ S, TP, TOT;
+non terminal E, EX, V, LN/*EXPP,*/;
+non terminal Integer EXP;
+non terminal Double EXPD;
+
+
+/*SECCIÓN DE PRECEDENCIA*/
+
+precedence left SUMA, RESTA;
+precedence left MULTIPLICACION, DIVISION;
+
+/*GRAMÁTICA TIPO 2: REGLAS SINTÁCTICAS*/
+start with D;
+
+D ::= DEF G D                         {:incrementarDef();:}
+    | DEF G
+    ;
+
+G ::= BARRAS LLAVE_A BA LLAVE_C         {:System.out.println("PROBANDO BARRAS CON LLAVES");:}
+    | PIE LLAVE_A PA LLAVE_C
+    | error G                           {:System.out.println("ERROR EN G");:}
+    ;
+
+BA ::= T X Y U
+    | T X U Y
+    | T Y X U
+    | T Y U X
+    | T U X Y
+    | T U Y X
+    | X T Y U
+    | X T U Y
+    | X Y T U
+    | X Y U T
+    | X U T Y
+    | X U Y T
+    | Y T X U
+    | Y T U X
+    | Y X T U
+    | Y X U T
+    | Y U T X
+    | Y U X T
+    | U T X Y
+    | U T Y X
+    | U X T Y
+    | U X Y T
+    | U Y T X
+    | U Y X T
+    | error BA                          {:System.out.println("ERROR EN BA");:}
+    ;
+T ::= TITULO DOS_PUNTOS CADENA PUNTO_COMA
+    ;
+
+X ::= EJEX DOS_PUNTOS CORCHETE_A C CORCHETE_C PUNTO_COMA
+    ;
+
+C ::= CADENA
+    | CADENA COMA C
+    ;
+
+Y ::= EJEY DOS_PUNTOS CORCHETE_A LN CORCHETE_C PUNTO_COMA
+    ;
+
+LN ::= EXPD COMA LN
+    | EXPD
+    ;
+
+U ::= UNIR DOS_PUNTOS CORCHETE_A TUP CORCHETE_C PUNTO_COMA
+    ;
+
+TUP ::= LLAVE_A VAL LLAVE_C
+    | LLAVE_A VAL LLAVE_C COMA TUP
+    ;
+
+VAL ::= EXP:e1 COMA EXP:e2                  {:System.out.println("EL RESULTADO ES: "+e1+","+e2);:}
+    ;
+
+/*
+EXPP ::= EXP EXPP
+    | EXP:e                                 {:System.out.println(e);:}
+    ;
+*/
+
+EXP ::= EXP:e1 SUMA EXP:e2                  {:RESULT = new Integer(e1.intValue() + e2.intValue());:}
+    | EXP:e1 RESTA EXP:e2                   {:RESULT = new Integer(e1.intValue() - e2.intValue());:}
+    | EXP:e1 MULTIPLICACION EXP:e2          {:RESULT = new Integer(e1.intValue() * e2.intValue());:}
+    | EXP:e1 DIVISION EXP:e2                {:RESULT = new Integer(e1.intValue() / e2.intValue());:}
+    | ENTERO:n                              {:RESULT = n;:}
+    | PARENTESIS_A EXP:e PARENTESIS_C       {:RESULT = e;:}
+    ;
+
+/*
+N ::= EXPD N
+    | EXPD
+    ;
+*/
+EXPD::=  EXPD SUMA EXPD
+    | EXPD RESTA EXPD
+    | EXPD MULTIPLICACION EXPD
+    | EXPD DIVISION EXPD
+    | ENTERO
+    | DECIMAL
+    | PARENTESIS_A EXPD PARENTESIS_C
+    ;
+
+PA ::= T TP E V EX
+    | T TP E EX V
+    | T TP V E EX
+    | T TP V EX E
+    | T TP EX E V
+    | T TP EX V E
+    | T E TP V EX
+    | T E TP EX V
+    | T E V TP EX
+    | T E V EX TP
+    | T E EX TP V
+    | T E EX V TP
+    | T V TP E EX
+    | T V TP EX E
+    | T V E TP EX
+    | T V E EX TP
+    | T V EX TP E
+    | T V EX E TP
+    | T EX TP E V
+    | T EX TP V E
+    | T EX E TP V
+    | T EX E V TP
+    | T EX V TP E
+    | T EX V E TP
+    | TP T E V EX
+    | TP T E EX V
+    | TP T V E EX
+    | TP T V EX E
+    | TP T EX E V
+    | TP T EX V E
+    | TP E T V EX
+    | TP E T EX V
+    | TP E V T EX
+    | TP E V EX T
+    | TP E EX T V
+    | TP E EX V T
+    | TP V T E EX
+    | TP V T EX E
+    | TP V E T EX
+    | TP V E EX T
+    | TP V EX T E
+    | TP V EX E T
+    | TP EX T E V
+    | TP EX T V E
+    | TP EX E T V
+    | TP EX E V T
+    | TP EX V T E
+    | TP EX V E T
+    | E T TP V EX
+    | E T TP EX V
+    | E T V TP EX
+    | E T V EX TP
+    | E T EX TP V
+    | E T EX V TP
+    | E TP T V EX
+    | E TP T EX V
+    | E TP V T EX
+    | E TP V EX T
+    | E TP EX T V
+    | E TP EX V T
+    | E V T TP EX
+    | E V T EX TP
+    | E V TP T EX
+    | E V TP EX T
+    | E V EX T TP
+    | E V EX TP T
+    | E EX T TP V
+    | E EX T V TP
+    | E EX TP T V
+    | E EX TP V T
+    | E EX V T TP
+    | E EX V TP T
+    | V T TP E EX
+    | V T TP EX E
+    | V T E TP EX
+    | V T E EX TP
+    | V T EX TP E
+    | V T EX E TP
+    | V TP T E EX
+    | V TP T EX E
+    | V TP E T EX
+    | V TP E EX T
+    | V TP EX T E
+    | V TP EX E T
+    | V E T TP EX
+    | V E T EX TP
+    | V E TP T EX
+    | V E TP EX T
+    | V E EX T TP
+    | V E EX TP T
+    | V EX T TP E
+    | V EX T E TP
+    | V EX TP T E
+    | V EX TP E T
+    | V EX E T TP
+    | V EX E TP T
+    | EX T TP E V
+    | EX T TP V E
+    | EX T E TP V
+    | EX T E V TP
+    | EX T V TP E
+    | EX T V E TP
+    | EX TP T E V
+    | EX TP T V E
+    | EX TP E T V
+    | EX TP E V T
+    | EX TP V T E
+    | EX TP V E T
+    | EX E T TP V
+    | EX E T V TP
+    | EX E TP T V
+    | EX E TP V T
+    | EX E V T TP
+    | EX E V TP T
+    | EX V T TP E
+    | EX V T E TP
+    | EX V TP T E
+    | EX V TP E T
+    | EX V E T TP
+    | EX V E TP T
+    ;
+
+TP ::= TIPO DOS_PUNTOS CANTIDAD PUNTO_COMA TOT
+    | TIPO DOS_PUNTOS PORCENTAJE PUNTO_COMA
+    ;
+
+TOT ::= TOTAL DOS_PUNTOS EXPD PUNTO_COMA
+    ;
+
+E ::= ETIQUETAS DOS_PUNTOS CORCHETE_A C CORCHETE_C PUNTO_COMA
+    ;
+
+EX ::= EXTRA DOS_PUNTOS CADENA PUNTO_COMA
+    ;
+
+V ::= VALORES DOS_PUNTOS CORCHETE_A EXPD CORCHETE_C PUNTO_COMA
+    ;

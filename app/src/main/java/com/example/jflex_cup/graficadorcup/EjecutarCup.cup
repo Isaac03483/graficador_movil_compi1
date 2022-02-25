@@ -1,0 +1,60 @@
+/*SECCIÓN 1: CÓDIGO*/
+/*CODIGO PARA LA CREACIÓN DEL CUP:
+java -jar java-cup-11b.jar -parser EjecutarCup -symbols ejecutarsym /home/ameri/Escritorio/2022/compis_uno/Graficador/app/src/main/java/com/example/jflex_cup/graficadorcup/EjecutarCup.cup
+*/
+
+/* TEXTO PARA PRUEBAS
+Def Barras {
+    titulo: "titulo de prueba";
+    ejex: ["eje 1", "eje 2"];
+    ejey: [3,4+2];
+    unir:[{1,2},{1,1}];
+}
+
+*/
+
+package com.example.jflex_cup.graficadorcup;
+
+import java_cup.runtime.*;
+import com.example.jflex_cup.graficadorflex.EjecutarLexico;
+
+parser code {:
+
+    public EjecutarCup(EjecutarLexico lexer) {
+        super(lexer);
+    }
+
+    public void report_error(String message, Object info) {
+        System.out.println("public void report_error");
+    }
+
+    public void report_fatal_error(String message, Object info) {
+        System.out.println("public void report_fatal_error");
+    }
+
+    public void syntax_error(Symbol cur_token) {
+        System.out.println("El error es el simbolo: " + sym.terminalNames[cur_token.sym]);
+        System.out.println(String.format("En la posicion: %d, %d", cur_token.left, cur_token.right));
+    }
+
+    public void unrecovered_syntax_error(Symbol cur_token) {
+        if (cur_token.sym == ejecutarsym.EOF) {
+            System.out.println("public void unrecoveredsyntax_error");
+        }
+    }
+
+:}
+
+/*SECCIÓN DE TERMINALES*/
+terminal EJECUTAR, PARENTESIS_C, PARENTESIS_A, PUNTO_COMA;
+terminal String CADENA;
+
+/*SECCIÓN DE NO TERMINALES*/
+non terminal EJ;
+
+/*GRAMÁTICA TIPO 2: REGLAS SINTÁCTICAS*/
+start with EJ;
+
+
+EJ ::= EJECUTAR PARENTESIS_A CADENA PARENTESIS_C PUNTO_COMA
+    ;
