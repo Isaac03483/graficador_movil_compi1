@@ -2,27 +2,27 @@ package com.example.models;
 
 public class Tupla {
 
-    private String valorEjeX;
-    private Double valorEjeY;
+    private Integer valorL;
+    private Integer valorR;
 
-    public Tupla(String valorEjeX, Double valorEjeY){
-        this.valorEjeX = valorEjeX;
-        this. valorEjeY = valorEjeY;
+    public Tupla(Integer valorL, Integer valorR){
+        this.valorL = valorL;
+        this.valorR = valorR;
     }
 
-    public String getValorEjeX() {
-        return valorEjeX;
+    public Integer getValorL() {
+        return valorL;
     }
 
-    public void setValorEjeX(String valorEjeX) {
-        this.valorEjeX = valorEjeX;
+    public void setValorL(Integer valorL) {
+        this.valorL = valorL;
     }
 
-    public Double getValorEjeY() {
-        return valorEjeY;
+    public Integer getValorR() {
+        return valorR;
     }
 
-    public void setValorEjeY(Double valorEjeY) {
-        this.valorEjeY = valorEjeY;
+    public void setValorR(Integer valorR) {
+        this.valorR = valorR;
     }
 }

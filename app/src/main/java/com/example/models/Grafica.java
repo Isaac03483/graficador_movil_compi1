@@ -7,9 +7,24 @@ public abstract class Grafica {
     protected String titulo;
     protected List<Tupla> listaTupla;
 
-    protected Grafica(String titulo){
+    public Grafica(String titulo, List<Tupla> listaTupla) {
+        this.titulo = titulo;
+        this.listaTupla = listaTupla;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
-    abstract void agregarTupla(Integer valorS, Integer valorD);
+    public List<Tupla> getListaTupla() {
+        return listaTupla;
+    }
+
+    public void setListaTupla(List<Tupla> listaTupla) {
+        this.listaTupla = listaTupla;
+    }
 }

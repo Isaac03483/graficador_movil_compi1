@@ -8,24 +8,25 @@ public class Barras extends Grafica{
     private List<String> ejeX;
     private List<Double> ejeY;
 
-    protected Barras(String titulo) {
-        super(titulo);
-        ejeX = new ArrayList<>();
-        ejeY= new ArrayList<>();
+    public Barras(String titulo, List<Tupla> listaTupla, List<String> ejeX, List<Double> ejeY) {
+        super(titulo, listaTupla);
+        this.ejeX = ejeX;
+        this.ejeY= ejeY;
     }
 
-    public void agregarEjeX(String cadena){
-        ejeX.add(cadena);
+    public List<String> getEjeX() {
+        return ejeX;
     }
 
-    public void agregarEjeY(Double valor){
-        ejeY.add(valor);
+    public void setEjeX(List<String> ejeX) {
+        this.ejeX = ejeX;
     }
 
-    @Override
-    void agregarTupla(Integer valorS, Integer valorD) {
-        this.listaTupla.add(new Tupla(ejeX.get(valorS), ejeY.get(valorD)));
+    public List<Double> getEjeY() {
+        return ejeY;
     }
 
-
+    public void setEjeY(List<Double> ejeY) {
+        this.ejeY = ejeY;
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Pie extends Grafica{
@@ -11,31 +10,38 @@ public class Pie extends Grafica{
     private Double total;
     private String extra;
 
-    protected Pie(String titulo) {
-        super(titulo);
-        etiquetas = new ArrayList<>();
-        valores = new ArrayList<>();
+    public Pie(String titulo, List<Tupla> listaTupla, List<String> etiquetas, List<Double> valores, Tipo tipo, Double total, String extra) {
+        super(titulo, listaTupla);
+        this.etiquetas = etiquetas;
+        this.valores = valores;
+        this.tipo = tipo;
+        this.total = total;
+        this.extra = extra;
+
     }
 
-    @Override
-    void agregarTupla(Integer valorS, Integer valorD) {
-        this.listaTupla.add(new Tupla(etiquetas.get(valorS), valores.get(valorD)));
+    public List<String> getEtiquetas() {
+        return etiquetas;
     }
 
-    public void agregarEtiqueta(String etiqueta){
-        etiquetas.add(etiqueta);
+    public void setEtiquetas(List<String> etiquetas) {
+        this.etiquetas = etiquetas;
     }
 
-    public void agregarValor(Double valor){
-        valores.add(valor);
+    public List<Double> getValores() {
+        return valores;
+    }
+
+    public void setValores(List<Double> valores) {
+        this.valores = valores;
     }
 
     public Tipo getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = Tipo.encontrarTipo(tipo);
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 
     public Double getTotal() {
