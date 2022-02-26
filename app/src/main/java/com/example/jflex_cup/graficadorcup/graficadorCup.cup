@@ -76,7 +76,7 @@ parser code {:
 
     public void agregarTitulo(String cadena){
         if(!tituloCreado){
-            System.out.println("CREANDO TITULO.");
+            graficador.setTitulo(cadena);
         } else {
             System.out.println("ERROR EN TITULO, YA SE HA ESPECIFICADO UNO ANTES.");
         }
@@ -84,7 +84,7 @@ parser code {:
 
     public void agregarEjeX(){
         if(!ejeXCreado){
-            System.out.println("CREANDO EJEX.");
+            graficador.setEjeX(poolString);
         } else {
             System.out.println("ESTE ATRIBUTO YA HA SIDO ESPECIFICADO ANTES.");
         }
@@ -92,7 +92,7 @@ parser code {:
 
     public void agregarEjeY(Double expd){
         if(!ejeYCreado){
-            System.out.println("CREANDO EJEY.");
+            graficador.agregarEjeY(expd);
         } else {
             System.out.println("ERROR AL AGREGAR ETIQUETAS, ESTE ATRIBUTO YA HA SIDO ESPECIFICADO ANTES.");
         }
@@ -106,9 +106,9 @@ parser code {:
         }
     }
 
-    public void agregarValor(){
+    public void agregarValor(Double expd){
         if(!valorCreado){
-            System.out.println("CREANDO VALOR.");
+            graficador.agregarValor(expd);
         } else {
             System.out.println("ERROR AL AGREGAR ETIQUETAS, ESTE ATRIBUTO YA HA SIDO ESPECIFICADO ANTES.");
         }
@@ -116,7 +116,7 @@ parser code {:
 
     public void agregarTupla(Integer valorL, Integer valorR){
         if(!tuplasCreadas){
-            System.out.println("CREANDO TUPLA.");
+            graficador.agregarTupla(valorL, valorR);
         } else {
             System.out.println("ESTE ATRIBUTO YA HA SIDO ESPECIFICADO ANTES.");
         }
@@ -124,7 +124,7 @@ parser code {:
 
     public void agregarTipo(Tipo tipo){
         if(!tipoCreado){
-            System.out.println("CREANDO TIPO.");
+            graficador.setTipo(tipo);
         } else {
             System.out.println("ERROR AL AGREGAR ETIQUETAS, ESTE ATRIBUTO YA HA SIDO ESPECIFICADO ANTES.");
         }
@@ -132,22 +132,28 @@ parser code {:
 
     public void agregarTotal(Double total){
         if(!totalCreado && graficador.getTipo() == Tipo.CANTIDAD){
-            System.out.println("CREANDO TOTAL.");
+            graficador.setTotal(total);
         } else {
             System.out.println("ESTE ATRIBUTO YA HA SIDO ESPECIFICADO ANTES.");
         }
     }
 
-    public void agregarExtra(){
+    public void agregarExtra(String cadena){
         if(!extraCreado){
-            System.out.println("CREANDO EXTRA.");
+            graficador.setExtra(cadena);
         } else {
             System.out.println("ERROR AL AGREGAR ETIQUETAS, ESTE ATRIBUTO YA HA SIDO ESPECIFICADO ANTES.");
         }
     }
 
     public void crearBarras(){
-        graficador.crearGraficaBarras();
+
+        if(tituloCreado && ejeXCreado && ejeYCreado && tuplasCreadas){
+            graficador.crearGraficaBarras();
+        } else {
+            System.out.println("ERROR EN LA CREACIÓN DE LA GRÁFICA DE BARRAS POR FALTA DE DATOS.");
+        }
+
         tituloCreado = false;
         ejeXCreado = false;
         ejeYCreado = false;
@@ -156,7 +162,14 @@ parser code {:
     }
 
     public void crearPie(){
-        graficador.crearGraficaPie();
+
+        if(tituloCreado && etiquetaCreada && valorCreado && tuplasCreadas && tipoCreado && totalCreado && extraCreado){
+
+            graficador.crearGraficaPie();
+        } else {
+            System.out.println("ERROR AL INTENTAR CREAR LA GRÁFICA POR FALTA DE VALORES.");
+        }
+
         tituloCreado = false;
         etiquetaCreada = false;
         valorCreado = false;
@@ -178,7 +191,7 @@ terminal Integer ENTERO;
 terminal Double DECIMAL;
 
 /*SECCIÓN DE NO TERMINALES*/
-non terminal D, G, BA, PA, T, X, Y, U, C, TUP, VAL, /*N,*/ S, TOT, TP;
+non terminal D, G, BA, PA, T, X, Y, U, C, TUP, VAL, N, S, TOT, TP;
 non terminal E, EX, V, LN/*EXPP,*/;
 non terminal Integer EXP;
 non terminal Double EXPD;
@@ -194,22 +207,22 @@ precedence left BARRAS, PIE;
 /*GRAMÁTICA TIPO 2: REGLAS SINTÁCTICAS*/
 start with D;
 
-D ::= DEF G D
+D ::= DEF G D                                               {:graficador.imprimirGraficas();:}
     | DEF G
     ;
 
-G ::= BARRAS LLAVE_A BA LLAVE_C                                 {:System.out.println("CREANDO GRAFICA DE BARRAS"); crearBarras();:}
-    | PIE LLAVE_A PA LLAVE_C                                    {:System.out.println("CREANDO GRAFICA DE PIE");:}
+G ::= BARRAS LLAVE_A BA LLAVE_C                                 {:crearBarras();:}
+    | PIE LLAVE_A PA LLAVE_C                                    {:crearPie();:}
     ;
 
-BA ::= T BA
-    |X BA
-    |Y BA
-    |U BA
-    |T
-    |X
-    |Y
-    |U
+BA ::= T BA                                                 {:tituloCreado = true;:}
+    |X BA                                                   {:ejeXCreado = true;:}
+    |Y BA                                                   {:ejeYCreado = true;:}
+    |U BA                                                   {:tuplasCreadas = true;:}
+    |T                                                      {:tituloCreado = true;:}
+    |X                                                      {:ejeXCreado = true;:}
+    |Y                                                      {:ejeYCreado = true;:}
+    |U                                                      {:tuplasCreadas = true;:}
     ;
 T ::= TITULO DOS_PUNTOS CADENA:cadena PUNTO_COMA                       {:agregarTitulo(cadena);:}
     ;
@@ -225,7 +238,7 @@ Y ::= EJEY DOS_PUNTOS CORCHETE_A LN CORCHETE_C PUNTO_COMA       {:System.out.pri
     ;
 
 LN ::= EXPD:expd COMA LN                                        {:agregarEjeY(expd);:}
-    | EXPD:expd
+    | EXPD:expd                                                 {:agregarEjeY(expd);:}
     ;
 
 U ::= UNIR DOS_PUNTOS CORCHETE_A TUP CORCHETE_C PUNTO_COMA      {:System.out.println("CREANDO UNIR");:}
@@ -252,12 +265,6 @@ EXP ::= EXP:e1 SUMA EXP:e2                  {:RESULT = new Integer(e1.intValue()
     | PARENTESIS_A EXP:e PARENTESIS_C       {:RESULT = e;:}
     ;
 
-/*
-N ::= EXPD N
-    | EXPD
-    ;
-*/
-
 EXPD::=  EXPD:ed1 SUMA EXPD:ed2             {:RESULT = new Double(ed1.intValue() + ed2.intValue());:}
     | EXPD:ed1 RESTA EXPD:ed2               {:RESULT = new Double(ed1.intValue() - ed2.intValue());:}
     | EXPD:ed1 MULTIPLICACION EXPD:ed2      {:RESULT = new Double(ed1.intValue() * ed2.intValue());:}
@@ -267,18 +274,20 @@ EXPD::=  EXPD:ed1 SUMA EXPD:ed2             {:RESULT = new Double(ed1.intValue()
     | PARENTESIS_A EXPD:e PARENTESIS_C      {:RESULT = e;:}
     ;
 
-PA ::= T PA
-    |TP PA
-    |E PA
-    |V PA
-    |EX PA
-    |TOT PA
-    |T
-    |TP
-    |E
-    |V
-    |EX
-    |TOT
+PA ::= T PA                                 {:tituloCreado = true;:}
+    |TP PA                                  {:tipoCreado = true;:}
+    |E PA                                   {:etiquetaCreada = true;:}
+    |V PA                                   {:valorCreado = true;:}
+    |EX PA                                  {:extraCreado = true;:}
+    |TOT PA                                 {:totalCreado = true;:}
+    |U PA                                   {:tuplasCreadas = true;:}
+    |U                                      {:tuplasCreadas = true;:}
+    |T                                      {:tituloCreado = true;:}
+    |TP                                     {:tipoCreado = true;:}
+    |E                                      {:etiquetaCreada = true;:}
+    |V                                      {:valorCreado = true;:}
+    |EX                                     {:extraCreado = true;:}
+    |TOT                                    {:totalCreado = true;:}
     ;
 
 TP ::= TIPO DOS_PUNTOS CANTIDAD PUNTO_COMA                          {:agregarTipo(Tipo.CANTIDAD);:}
@@ -294,5 +303,9 @@ E ::= ETIQUETAS DOS_PUNTOS CORCHETE_A C CORCHETE_C PUNTO_COMA       {:agregarEti
 EX ::= EXTRA DOS_PUNTOS CADENA:cadena PUNTO_COMA                    {:agregarExtra(cadena);:}
     ;
 
-V ::= VALORES DOS_PUNTOS CORCHETE_A EXPD:expd CORCHETE_C PUNTO_COMA      {:agregarValores(expd);:}
+V ::= VALORES DOS_PUNTOS CORCHETE_A N CORCHETE_C PUNTO_COMA
+    ;
+
+N ::= EXPD:expd N                                                   {:agregarValor(expd);:}
+    | EXPD:expd                                                     {:agregarValor(expd);:}
     ;

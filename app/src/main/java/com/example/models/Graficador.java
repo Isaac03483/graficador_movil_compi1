@@ -1,5 +1,7 @@
 package com.example.models;
 
+import android.os.Build;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +70,7 @@ public class Graficador {
     }
 
     public void agregarTupla(Integer e1, Integer e2){
+        System.out.println("e1 + e2 = " + e1 + e2);
         tuplas.add(new Tupla(e1, e2));
     }
 
@@ -77,6 +80,7 @@ public class Graficador {
         this.tuplas.clear();
         this.ejeX.clear();
         this.ejeY.clear();
+        System.out.println(graficas.get(graficas.size()-1));
     }
 
     public void crearGraficaPie(){
@@ -92,5 +96,6 @@ public class Graficador {
         this.tipo = null;
         this.total = null;
         this.extra = null;
+        System.out.println("graficas.size() = " + graficas.size());
     }
 }

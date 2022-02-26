@@ -29,4 +29,14 @@ public class Barras extends Grafica{
     public void setEjeY(List<Double> ejeY) {
         this.ejeY = ejeY;
     }
+
+    @Override
+    public String toString() {
+        return "Barras{" +
+                "ejeX=" + ejeX.size() +
+                ", ejeY=" + ejeY.size() +
+                ", titulo='" + titulo + '\'' +
+                ", listaTupla=" + listaTupla.size() +
+                '}';
+    }
 }

@@ -59,4 +59,17 @@ public class Pie extends Grafica{
     public void setExtra(String extra) {
         this.extra = extra;
     }
+
+    @Override
+    public String toString() {
+        return "Pie{" +
+                "titulo='" + titulo + '\'' +
+                ", listaTupla=" + listaTupla +
+                ", etiquetas=" + etiquetas +
+                ", valores=" + valores +
+                ", tipo=" + tipo +
+                ", total=" + total +
+                ", extra='" + extra + '\'' +
+                '}';
+    }
 }
