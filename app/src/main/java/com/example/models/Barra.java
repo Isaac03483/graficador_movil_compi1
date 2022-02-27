@@ -3,15 +3,15 @@ package com.example.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Barras extends Grafica{
+public class Barra extends Grafica{
 
-    private List<String> ejeX;
-    private List<Double> ejeY;
+    private List<String> ejeX = new ArrayList<>();
+    private List<Double> ejeY = new ArrayList<>();
 
-    public Barras(String titulo, List<Tupla> listaTupla, List<String> ejeX, List<Double> ejeY) {
+    public Barra(String titulo, List<Tupla> listaTupla, List<String> ejeX, List<Double> ejeY) {
         super(titulo, listaTupla);
-        this.ejeX = ejeX;
-        this.ejeY= ejeY;
+        this.ejeX.addAll(ejeX);
+        this.ejeY.addAll(ejeY);
     }
 
     public List<String> getEjeX() {
@@ -33,10 +33,10 @@ public class Barras extends Grafica{
     @Override
     public String toString() {
         return "Barras{" +
-                "ejeX=" + ejeX.size() +
-                ", ejeY=" + ejeY.size() +
+                "ejeX=" + ejeX +
+                ", ejeY=" + ejeY +
                 ", titulo='" + titulo + '\'' +
-                ", listaTupla=" + listaTupla.size() +
+                ", listaTupla=" + listaTupla +
                 '}';
     }
 }

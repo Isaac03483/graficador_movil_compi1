@@ -8,6 +8,7 @@ package com.example.jflex_cup.graficadorcup;
 import java_cup.runtime.*;
 import com.example.models.Graficador;
 import com.example.models.Tipo;
+import com.example.error.*;
 import java.util.ArrayList;
 import java.util.List;
 import com.example.jflex_cup.graficadorflex.GraficadorLexico;
@@ -36,24 +37,28 @@ public class GraficadorCup extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\073\000\002\002\004\000\002\002\005\000\002\002" +
-    "\004\000\002\003\006\000\002\003\006\000\002\004\004" +
+    "\000\110\000\002\002\004\000\002\002\005\000\002\002" +
+    "\004\000\002\003\006\000\002\003\006\000\002\003\004" +
+    "\000\002\003\004\000\002\003\004\000\002\003\004\000" +
+    "\002\003\004\000\002\003\004\000\002\003\004\000\002" +
+    "\003\004\000\002\003\004\000\002\003\004\000\002\003" +
+    "\004\000\002\003\004\000\002\003\004\000\002\004\004" +
     "\000\002\004\004\000\002\004\004\000\002\004\004\000" +
     "\002\004\003\000\002\004\003\000\002\004\003\000\002" +
     "\004\003\000\002\006\006\000\002\007\010\000\002\012" +
-    "\003\000\002\012\005\000\002\010\010\000\002\024\005" +
-    "\000\002\024\003\000\002\011\010\000\002\013\005\000" +
-    "\002\013\007\000\002\014\005\000\002\025\005\000\002" +
-    "\025\005\000\002\025\005\000\002\025\005\000\002\025" +
-    "\003\000\002\025\005\000\002\026\005\000\002\026\005" +
-    "\000\002\026\005\000\002\026\005\000\002\026\003\000" +
-    "\002\026\003\000\002\026\005\000\002\005\004\000\002" +
+    "\003\000\002\012\005\000\002\010\010\000\002\023\005" +
+    "\000\002\023\003\000\002\011\010\000\002\013\005\000" +
+    "\002\013\007\000\002\014\005\000\002\024\005\000\002" +
+    "\024\005\000\002\024\005\000\002\024\005\000\002\024" +
+    "\003\000\002\024\005\000\002\025\005\000\002\025\005" +
+    "\000\002\025\005\000\002\025\005\000\002\025\003\000" +
+    "\002\025\003\000\002\025\005\000\002\005\004\000\002" +
     "\005\004\000\002\005\004\000\002\005\004\000\002\005" +
     "\004\000\002\005\004\000\002\005\004\000\002\005\003" +
     "\000\002\005\003\000\002\005\003\000\002\005\003\000" +
     "\002\005\003\000\002\005\003\000\002\005\003\000\002" +
-    "\020\006\000\002\020\006\000\002\017\006\000\002\021" +
-    "\010\000\002\022\006\000\002\023\010\000\002\015\004" +
+    "\017\006\000\002\017\006\000\002\016\006\000\002\020" +
+    "\010\000\002\021\006\000\002\022\010\000\002\015\005" +
     "\000\002\015\003" });
 
   /** Access to production table. */
@@ -62,112 +67,120 @@ public class GraficadorCup extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\175\000\004\004\004\001\002\000\006\005\007\006" +
-    "\011\001\002\000\004\002\006\001\002\000\004\002\001" +
-    "\001\002\000\004\035\146\001\002\000\006\002\uffff\004" +
-    "\004\001\002\000\004\035\012\001\002\000\020\010\015" +
-    "\013\027\014\024\015\026\016\025\021\023\022\030\001" +
-    "\002\000\022\010\015\013\027\014\024\015\026\016\025" +
-    "\021\023\022\030\036\uffcf\001\002\000\022\010\015\013" +
-    "\027\014\024\015\026\016\025\021\023\022\030\036\uffd0" +
-    "\001\002\000\004\027\140\001\002\000\022\010\015\013" +
-    "\027\014\024\015\026\016\025\021\023\022\030\036\uffd1" +
-    "\001\002\000\022\010\015\013\027\014\024\015\026\016" +
-    "\025\021\023\022\030\036\uffd5\001\002\000\022\010\015" +
-    "\013\027\014\024\015\026\016\025\021\023\022\030\036" +
-    "\uffd3\001\002\000\004\036\134\001\002\000\022\010\015" +
-    "\013\027\014\024\015\026\016\025\021\023\022\030\036" +
-    "\uffd4\001\002\000\004\027\130\001\002\000\004\027\104" +
-    "\001\002\000\004\027\077\001\002\000\004\027\046\001" +
-    "\002\000\004\027\036\001\002\000\004\027\033\001\002" +
-    "\000\022\010\015\013\027\014\024\015\026\016\025\021" +
-    "\023\022\030\036\uffd2\001\002\000\004\036\uffda\001\002" +
-    "\000\004\037\034\001\002\000\004\030\035\001\002\000" +
-    "\022\010\uffca\013\uffca\014\uffca\015\uffca\016\uffca\021\uffca" +
-    "\022\uffca\036\uffca\001\002\000\004\033\037\001\002\000" +
-    "\004\037\041\001\002\000\004\034\044\001\002\000\006" +
-    "\007\042\034\ufff2\001\002\000\004\037\041\001\002\000" +
-    "\004\034\ufff1\001\002\000\004\030\045\001\002\000\022" +
-    "\010\uffcb\013\uffcb\014\uffcb\015\uffcb\016\uffcb\021\uffcb\022" +
-    "\uffcb\036\uffcb\001\002\000\004\033\047\001\002\000\004" +
-    "\035\051\001\002\000\004\034\075\001\002\000\006\031" +
-    "\052\040\055\001\002\000\006\031\052\040\055\001\002" +
-    "\000\014\007\062\023\064\024\061\025\063\026\065\001" +
-    "\002\000\004\036\056\001\002\000\020\007\uffe5\023\uffe5" +
-    "\024\uffe5\025\uffe5\026\uffe5\032\uffe5\036\uffe5\001\002\000" +
-    "\006\007\057\034\uffec\001\002\000\004\035\051\001\002" +
-    "\000\004\034\uffeb\001\002\000\006\031\052\040\055\001" +
-    "\002\000\006\031\052\040\055\001\002\000\006\031\052" +
-    "\040\055\001\002\000\006\031\052\040\055\001\002\000" +
-    "\006\031\052\040\055\001\002\000\020\007\uffe6\023\uffe6" +
-    "\024\uffe6\025\uffe6\026\uffe6\032\uffe6\036\uffe6\001\002\000" +
-    "\020\007\uffe9\023\uffe9\024\uffe9\025\063\026\065\032\uffe9" +
-    "\036\uffe9\001\002\000\020\007\uffe7\023\uffe7\024\uffe7\025" +
-    "\uffe7\026\uffe7\032\uffe7\036\uffe7\001\002\000\014\023\064" +
-    "\024\061\025\063\026\065\036\uffea\001\002\000\020\007" +
-    "\uffe8\023\uffe8\024\uffe8\025\063\026\065\032\uffe8\036\uffe8" +
-    "\001\002\000\014\023\064\024\061\025\063\026\065\032" +
-    "\074\001\002\000\020\007\uffe4\023\uffe4\024\uffe4\025\uffe4" +
-    "\026\uffe4\032\uffe4\036\uffe4\001\002\000\004\030\076\001" +
-    "\002\000\026\010\uffed\011\uffed\012\uffed\013\uffed\014\uffed" +
-    "\015\uffed\016\uffed\021\uffed\022\uffed\036\uffed\001\002\000" +
-    "\006\017\100\020\101\001\002\000\004\030\103\001\002" +
-    "\000\004\030\102\001\002\000\022\010\uffcd\013\uffcd\014" +
-    "\uffcd\015\uffcd\016\uffcd\021\uffcd\022\uffcd\036\uffcd\001\002" +
-    "\000\022\010\uffce\013\uffce\014\uffce\015\uffce\016\uffce\021" +
-    "\uffce\022\uffce\036\uffce\001\002\000\004\033\105\001\002" +
-    "\000\010\031\107\040\112\041\110\001\002\000\022\023" +
-    "\121\024\116\025\117\026\122\031\107\034\uffc7\040\112" +
-    "\041\110\001\002\000\010\031\107\040\112\041\110\001" +
-    "\002\000\030\007\uffde\023\uffde\024\uffde\025\uffde\026\uffde" +
-    "\030\uffde\031\uffde\032\uffde\034\uffde\040\uffde\041\uffde\001" +
-    "\002\000\004\034\113\001\002\000\030\007\uffdf\023\uffdf" +
-    "\024\uffdf\025\uffdf\026\uffdf\030\uffdf\031\uffdf\032\uffdf\034" +
-    "\uffdf\040\uffdf\041\uffdf\001\002\000\004\030\114\001\002" +
-    "\000\022\010\uffc9\013\uffc9\014\uffc9\015\uffc9\016\uffc9\021" +
-    "\uffc9\022\uffc9\036\uffc9\001\002\000\014\023\121\024\116" +
-    "\025\117\026\122\032\120\001\002\000\010\031\107\040" +
-    "\112\041\110\001\002\000\010\031\107\040\112\041\110" +
-    "\001\002\000\030\007\uffdd\023\uffdd\024\uffdd\025\uffdd\026" +
-    "\uffdd\030\uffdd\031\uffdd\032\uffdd\034\uffdd\040\uffdd\041\uffdd" +
-    "\001\002\000\010\031\107\040\112\041\110\001\002\000" +
-    "\010\031\107\040\112\041\110\001\002\000\030\007\uffe0" +
-    "\023\uffe0\024\uffe0\025\uffe0\026\uffe0\030\uffe0\031\uffe0\032" +
-    "\uffe0\034\uffe0\040\uffe0\041\uffe0\001\002\000\030\007\uffe3" +
-    "\023\uffe3\024\uffe3\025\117\026\122\030\uffe3\031\uffe3\032" +
-    "\uffe3\034\uffe3\040\uffe3\041\uffe3\001\002\000\030\007\uffe1" +
-    "\023\uffe1\024\uffe1\025\uffe1\026\uffe1\030\uffe1\031\uffe1\032" +
-    "\uffe1\034\uffe1\040\uffe1\041\uffe1\001\002\000\030\007\uffe2" +
-    "\023\uffe2\024\uffe2\025\117\026\122\030\uffe2\031\uffe2\032" +
-    "\uffe2\034\uffe2\040\uffe2\041\uffe2\001\002\000\004\034\uffc8" +
-    "\001\002\000\010\031\107\040\112\041\110\001\002\000" +
-    "\014\023\121\024\116\025\117\026\122\030\132\001\002" +
-    "\000\022\010\uffcc\013\uffcc\014\uffcc\015\uffcc\016\uffcc\021" +
-    "\uffcc\022\uffcc\036\uffcc\001\002\000\004\036\uffdc\001\002" +
-    "\000\006\002\ufffd\004\ufffd\001\002\000\004\036\uffdb\001" +
-    "\002\000\004\036\uffd6\001\002\000\004\036\uffd9\001\002" +
-    "\000\004\037\141\001\002\000\004\030\142\001\002\000" +
-    "\026\010\ufff4\011\ufff4\012\ufff4\013\ufff4\014\ufff4\015\ufff4" +
-    "\016\ufff4\021\ufff4\022\ufff4\036\ufff4\001\002\000\004\036" +
-    "\uffd8\001\002\000\004\036\uffd7\001\002\000\004\002\000" +
-    "\001\002\000\012\010\015\011\153\012\152\015\026\001" +
-    "\002\000\014\010\015\011\153\012\152\015\026\036\ufff6" +
-    "\001\002\000\014\010\015\011\153\012\152\015\026\036" +
-    "\ufff7\001\002\000\004\036\175\001\002\000\004\027\165" +
-    "\001\002\000\004\027\160\001\002\000\014\010\015\011" +
-    "\153\012\152\015\026\036\ufff5\001\002\000\014\010\015" +
-    "\011\153\012\152\015\026\036\ufff8\001\002\000\004\036" +
-    "\ufffc\001\002\000\004\036\ufff9\001\002\000\004\033\161" +
-    "\001\002\000\004\037\041\001\002\000\004\034\163\001" +
-    "\002\000\004\030\164\001\002\000\014\010\ufff3\011\ufff3" +
-    "\012\ufff3\015\ufff3\036\ufff3\001\002\000\004\033\166\001" +
-    "\002\000\010\031\107\040\112\041\110\001\002\000\016" +
-    "\007\173\023\121\024\116\025\117\026\122\034\uffee\001" +
-    "\002\000\004\034\171\001\002\000\004\030\172\001\002" +
-    "\000\014\010\ufff0\011\ufff0\012\ufff0\015\ufff0\036\ufff0\001" +
-    "\002\000\010\031\107\040\112\041\110\001\002\000\004" +
-    "\034\uffef\001\002\000\006\002\ufffe\004\ufffe\001\002\000" +
-    "\004\036\ufffb\001\002\000\004\036\ufffa\001\002" });
+    "\000\214\000\004\004\004\001\002\000\010\003\007\005" +
+    "\010\006\012\001\002\000\004\002\006\001\002\000\004" +
+    "\002\001\001\002\000\034\007\202\023\203\024\215\025" +
+    "\205\026\212\027\214\030\204\031\216\032\213\033\210" +
+    "\034\207\035\211\036\206\001\002\000\004\035\150\001" +
+    "\002\000\006\002\uffff\004\004\001\002\000\004\035\013" +
+    "\001\002\000\020\010\015\013\030\014\025\015\027\016" +
+    "\026\021\024\022\031\001\002\000\022\010\015\013\030" +
+    "\014\025\015\027\016\026\021\024\022\031\036\uffc2\001" +
+    "\002\000\004\027\143\001\002\000\022\010\015\013\030" +
+    "\014\025\015\027\016\026\021\024\022\031\036\uffc3\001" +
+    "\002\000\022\010\015\013\030\014\025\015\027\016\026" +
+    "\021\024\022\031\036\uffc4\001\002\000\022\010\015\013" +
+    "\030\014\025\015\027\016\026\021\024\022\031\036\uffc6" +
+    "\001\002\000\022\010\015\013\030\014\025\015\027\016" +
+    "\026\021\024\022\031\036\uffc8\001\002\000\004\036\136" +
+    "\001\002\000\022\010\015\013\030\014\025\015\027\016" +
+    "\026\021\024\022\031\036\uffc7\001\002\000\004\027\132" +
+    "\001\002\000\004\027\105\001\002\000\004\027\100\001" +
+    "\002\000\004\027\047\001\002\000\004\027\037\001\002" +
+    "\000\004\027\034\001\002\000\022\010\015\013\030\014" +
+    "\025\015\027\016\026\021\024\022\031\036\uffc5\001\002" +
+    "\000\004\036\uffcd\001\002\000\004\037\035\001\002\000" +
+    "\004\030\036\001\002\000\022\010\uffbd\013\uffbd\014\uffbd" +
+    "\015\uffbd\016\uffbd\021\uffbd\022\uffbd\036\uffbd\001\002\000" +
+    "\004\033\040\001\002\000\004\037\042\001\002\000\004" +
+    "\034\045\001\002\000\006\007\043\034\uffe5\001\002\000" +
+    "\004\037\042\001\002\000\004\034\uffe4\001\002\000\004" +
+    "\030\046\001\002\000\022\010\uffbe\013\uffbe\014\uffbe\015" +
+    "\uffbe\016\uffbe\021\uffbe\022\uffbe\036\uffbe\001\002\000\004" +
+    "\033\050\001\002\000\004\035\052\001\002\000\004\034" +
+    "\076\001\002\000\006\031\053\040\056\001\002\000\006" +
+    "\031\053\040\056\001\002\000\004\036\071\001\002\000" +
+    "\014\007\057\023\062\024\061\025\060\026\063\001\002" +
+    "\000\020\007\uffd8\023\uffd8\024\uffd8\025\uffd8\026\uffd8\032" +
+    "\uffd8\036\uffd8\001\002\000\006\031\053\040\056\001\002" +
+    "\000\006\031\053\040\056\001\002\000\006\031\053\040" +
+    "\056\001\002\000\006\031\053\040\056\001\002\000\006" +
+    "\031\053\040\056\001\002\000\020\007\uffd9\023\uffd9\024" +
+    "\uffd9\025\uffd9\026\uffd9\032\uffd9\036\uffd9\001\002\000\020" +
+    "\007\uffdc\023\uffdc\024\uffdc\025\060\026\063\032\uffdc\036" +
+    "\uffdc\001\002\000\020\007\uffdb\023\uffdb\024\uffdb\025\060" +
+    "\026\063\032\uffdb\036\uffdb\001\002\000\020\007\uffda\023" +
+    "\uffda\024\uffda\025\uffda\026\uffda\032\uffda\036\uffda\001\002" +
+    "\000\014\023\062\024\061\025\060\026\063\036\uffdd\001" +
+    "\002\000\006\007\072\034\uffdf\001\002\000\004\035\052" +
+    "\001\002\000\004\034\uffde\001\002\000\014\023\062\024" +
+    "\061\025\060\026\063\032\075\001\002\000\020\007\uffd7" +
+    "\023\uffd7\024\uffd7\025\uffd7\026\uffd7\032\uffd7\036\uffd7\001" +
+    "\002\000\004\030\077\001\002\000\026\010\uffe0\011\uffe0" +
+    "\012\uffe0\013\uffe0\014\uffe0\015\uffe0\016\uffe0\021\uffe0\022" +
+    "\uffe0\036\uffe0\001\002\000\006\017\101\020\102\001\002" +
+    "\000\004\030\104\001\002\000\004\030\103\001\002\000" +
+    "\022\010\uffc0\013\uffc0\014\uffc0\015\uffc0\016\uffc0\021\uffc0" +
+    "\022\uffc0\036\uffc0\001\002\000\022\010\uffc1\013\uffc1\014" +
+    "\uffc1\015\uffc1\016\uffc1\021\uffc1\022\uffc1\036\uffc1\001\002" +
+    "\000\004\033\106\001\002\000\010\031\110\040\113\041" +
+    "\112\001\002\000\016\007\130\023\122\024\117\025\120" +
+    "\026\123\034\uffba\001\002\000\010\031\110\040\113\041" +
+    "\112\001\002\000\004\034\114\001\002\000\022\007\uffd1" +
+    "\023\uffd1\024\uffd1\025\uffd1\026\uffd1\030\uffd1\032\uffd1\034" +
+    "\uffd1\001\002\000\022\007\uffd2\023\uffd2\024\uffd2\025\uffd2" +
+    "\026\uffd2\030\uffd2\032\uffd2\034\uffd2\001\002\000\004\030" +
+    "\115\001\002\000\022\010\uffbc\013\uffbc\014\uffbc\015\uffbc" +
+    "\016\uffbc\021\uffbc\022\uffbc\036\uffbc\001\002\000\014\023" +
+    "\122\024\117\025\120\026\123\032\121\001\002\000\010" +
+    "\031\110\040\113\041\112\001\002\000\010\031\110\040" +
+    "\113\041\112\001\002\000\022\007\uffd0\023\uffd0\024\uffd0" +
+    "\025\uffd0\026\uffd0\030\uffd0\032\uffd0\034\uffd0\001\002\000" +
+    "\010\031\110\040\113\041\112\001\002\000\010\031\110" +
+    "\040\113\041\112\001\002\000\022\007\uffd3\023\uffd3\024" +
+    "\uffd3\025\uffd3\026\uffd3\030\uffd3\032\uffd3\034\uffd3\001\002" +
+    "\000\022\007\uffd6\023\uffd6\024\uffd6\025\120\026\123\030" +
+    "\uffd6\032\uffd6\034\uffd6\001\002\000\022\007\uffd4\023\uffd4" +
+    "\024\uffd4\025\uffd4\026\uffd4\030\uffd4\032\uffd4\034\uffd4\001" +
+    "\002\000\022\007\uffd5\023\uffd5\024\uffd5\025\120\026\123" +
+    "\030\uffd5\032\uffd5\034\uffd5\001\002\000\010\031\110\040" +
+    "\113\041\112\001\002\000\004\034\uffbb\001\002\000\010" +
+    "\031\110\040\113\041\112\001\002\000\014\023\122\024" +
+    "\117\025\120\026\123\030\134\001\002\000\022\010\uffbf" +
+    "\013\uffbf\014\uffbf\015\uffbf\016\uffbf\021\uffbf\022\uffbf\036" +
+    "\uffbf\001\002\000\004\036\uffcf\001\002\000\006\002\ufffd" +
+    "\004\ufffd\001\002\000\004\036\uffc9\001\002\000\004\036" +
+    "\uffce\001\002\000\004\036\uffcc\001\002\000\004\036\uffcb" +
+    "\001\002\000\004\037\144\001\002\000\004\030\145\001" +
+    "\002\000\026\010\uffe7\011\uffe7\012\uffe7\013\uffe7\014\uffe7" +
+    "\015\uffe7\016\uffe7\021\uffe7\022\uffe7\036\uffe7\001\002\000" +
+    "\004\036\uffca\001\002\000\004\002\000\001\002\000\012" +
+    "\010\015\011\155\012\153\015\027\001\002\000\014\010" +
+    "\015\011\155\012\153\015\027\036\uffe9\001\002\000\014" +
+    "\010\015\011\155\012\153\015\027\036\uffea\001\002\000" +
+    "\004\027\170\001\002\000\004\036\167\001\002\000\004" +
+    "\027\162\001\002\000\014\010\015\011\155\012\153\015" +
+    "\027\036\uffe8\001\002\000\014\010\015\011\155\012\153" +
+    "\015\027\036\uffeb\001\002\000\004\036\uffef\001\002\000" +
+    "\004\036\uffec\001\002\000\004\033\163\001\002\000\004" +
+    "\037\042\001\002\000\004\034\165\001\002\000\004\030" +
+    "\166\001\002\000\014\010\uffe6\011\uffe6\012\uffe6\015\uffe6" +
+    "\036\uffe6\001\002\000\006\002\ufffe\004\ufffe\001\002\000" +
+    "\004\033\171\001\002\000\010\031\110\040\113\041\112" +
+    "\001\002\000\016\007\176\023\122\024\117\025\120\026" +
+    "\123\034\uffe1\001\002\000\004\034\174\001\002\000\004" +
+    "\030\175\001\002\000\014\010\uffe3\011\uffe3\012\uffe3\015" +
+    "\uffe3\036\uffe3\001\002\000\010\031\110\040\113\041\112" +
+    "\001\002\000\004\034\uffe2\001\002\000\004\036\uffee\001" +
+    "\002\000\004\036\uffed\001\002\000\006\002\ufff0\004\ufff0" +
+    "\001\002\000\006\002\ufff6\004\ufff6\001\002\000\006\002" +
+    "\ufff9\004\ufff9\001\002\000\006\002\ufff4\004\ufff4\001\002" +
+    "\000\006\002\ufffb\004\ufffb\001\002\000\006\002\ufff7\004" +
+    "\ufff7\001\002\000\006\002\ufff8\004\ufff8\001\002\000\006" +
+    "\002\ufffc\004\ufffc\001\002\000\006\002\ufff3\004\ufff3\001" +
+    "\002\000\006\002\ufff1\004\ufff1\001\002\000\006\002\ufffa" +
+    "\004\ufffa\001\002\000\006\002\ufff5\004\ufff5\001\002\000" +
+    "\006\002\ufff2\004\ufff2\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -175,63 +188,68 @@ public class GraficadorCup extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\175\000\004\002\004\001\001\000\004\003\007\001" +
+    "\000\214\000\004\002\004\001\001\000\004\003\010\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\004\002\144\001\001\000\002\001\001\000\022\005" +
-    "\020\006\021\011\016\017\012\020\017\021\030\022\013" +
-    "\023\015\001\001\000\022\005\143\006\021\011\016\017" +
-    "\012\020\017\021\030\022\013\023\015\001\001\000\022" +
-    "\005\142\006\021\011\016\017\012\020\017\021\030\022" +
-    "\013\023\015\001\001\000\002\001\001\000\022\005\136" +
-    "\006\021\011\016\017\012\020\017\021\030\022\013\023" +
-    "\015\001\001\000\022\005\135\006\021\011\016\017\012" +
-    "\020\017\021\030\022\013\023\015\001\001\000\022\005" +
-    "\134\006\021\011\016\017\012\020\017\021\030\022\013" +
-    "\023\015\001\001\000\002\001\001\000\022\005\132\006" +
-    "\021\011\016\017\012\020\017\021\030\022\013\023\015" +
+    "\000\002\001\001\000\004\002\146\001\001\000\002\001" +
+    "\001\000\022\005\021\006\022\011\020\016\013\017\017" +
+    "\020\031\021\015\022\016\001\001\000\022\005\145\006" +
+    "\022\011\020\016\013\017\017\020\031\021\015\022\016" +
+    "\001\001\000\002\001\001\000\022\005\141\006\022\011" +
+    "\020\016\013\017\017\020\031\021\015\022\016\001\001" +
+    "\000\022\005\140\006\022\011\020\016\013\017\017\020" +
+    "\031\021\015\022\016\001\001\000\022\005\137\006\022" +
+    "\011\020\016\013\017\017\020\031\021\015\022\016\001" +
+    "\001\000\022\005\136\006\022\011\020\016\013\017\017" +
+    "\020\031\021\015\022\016\001\001\000\002\001\001\000" +
+    "\022\005\134\006\022\011\020\016\013\017\017\020\031" +
+    "\021\015\022\016\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\022\005\032\006\022\011\020\016" +
+    "\013\017\017\020\031\021\015\022\016\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\004\012\040\001\001\000\002" +
+    "\001\001\000\002\001\001\000\004\012\043\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\004\013\050\001\001\000\002\001\001\000" +
+    "\006\014\053\024\054\001\001\000\004\024\073\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\004\024\067\001\001\000\004\024\066\001\001\000\004" +
+    "\024\065\001\001\000\004\024\064\001\001\000\004\024" +
+    "\063\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\004\013\072\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\022\005\031\006\021\011\016\017\012\020\017\021" +
-    "\030\022\013\023\015\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\004\012\037\001\001\000\002\001\001\000\002" +
-    "\001\001\000\004\012\042\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\013\047\001\001\000\002\001\001\000\006\014\053\025" +
-    "\052\001\001\000\004\025\072\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\004\013\057\001\001\000\002\001\001\000\004\025\071" +
-    "\001\001\000\004\025\070\001\001\000\004\025\067\001" +
-    "\001\000\004\025\066\001\001\000\004\025\065\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\006\015\110\025\106\001\001\000\002\001\001\000\004" +
+    "\025\115\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\004\025\126\001\001\000\004\025\125\001" +
+    "\001\000\002\001\001\000\004\025\124\001\001\000\004" +
+    "\025\123\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\006\015\130\025\106" +
+    "\001\001\000\002\001\001\000\004\025\132\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\006\015\110\026" +
-    "\105\001\001\000\006\015\126\026\105\001\001\000\004" +
-    "\026\114\001\001\000\002\001\001\000\002\001\001\000" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\014\004\153\006\156\007\151\010\150\011\155\001\001" +
+    "\000\014\004\200\006\156\007\151\010\150\011\155\001" +
+    "\001\000\014\004\177\006\156\007\151\010\150\011\155" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\014\004\160\006\156\007\151\010\150\011\155" +
+    "\001\001\000\014\004\157\006\156\007\151\010\150\011" +
+    "\155\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\004\012\163\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\004\026\125\001\001\000\004\026\124\001" +
-    "\001\000\002\001\001\000\004\026\123\001\001\000\004" +
-    "\026\122\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\026\130\001\001\000\002\001\001\000\002\001\001\000" +
+    "\001\001\000\006\023\172\025\171\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\006\023\176\025\171\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\014\004\150\006\154\007\147\010" +
-    "\146\011\153\001\001\000\014\004\176\006\154\007\147" +
-    "\010\146\011\153\001\001\000\014\004\175\006\154\007" +
-    "\147\010\146\011\153\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\014\004\156\006\154\007" +
-    "\147\010\146\011\153\001\001\000\014\004\155\006\154" +
-    "\007\147\010\146\011\153\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\012\161\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\006\024\167\026\166\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\006\024\173\026\166\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001" });
+    "\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -284,8 +302,7 @@ public class GraficadorCup extends java_cup.runtime.lr_parser {
     }
 
     public void syntax_error(Symbol cur_token) {
-        System.out.println("El error es el simbolo: " + sym.terminalNames[cur_token.sym]);
-        System.out.println(String.format("En la posicion: %d, %d", cur_token.left, cur_token.right));
+
     }
 
     public void unrecovered_syntax_error(Symbol cur_token) {
@@ -305,9 +322,12 @@ public class GraficadorCup extends java_cup.runtime.lr_parser {
     boolean extraCreado = false;
     Graficador graficador = new Graficador();
     List<String> poolString = new ArrayList<>();
+    List<ErrorObj> listaErrores = new ArrayList<>();
 
     public void agregarPoolString(String cadena){
         poolString.add(cadena);
+        System.out.println("ESTA ES UNA PRUEBA DE QUE ESTA ENTRANDO AL POOLSTRING: "+cadena);
+        poolString.size();
     }
 
     public void agregarTitulo(String cadena){
@@ -319,7 +339,6 @@ public class GraficadorCup extends java_cup.runtime.lr_parser {
     }
 
     public void agregarEjeX(){
-        System.out.println("ejeXCreado = " + ejeXCreado);
         if(!ejeXCreado){
             graficador.setEjeX(poolString);
         } else {
@@ -384,7 +403,6 @@ public class GraficadorCup extends java_cup.runtime.lr_parser {
     }
 
     public void crearBarras(){
-
         if(tituloCreado && ejeXCreado && ejeYCreado && tuplasCreadas){
             graficador.crearGraficaBarras();
         } else {
@@ -415,6 +433,20 @@ public class GraficadorCup extends java_cup.runtime.lr_parser {
         totalCreado = false;
         extraCreado = false;
         poolString.clear();
+    }
+
+    private void agregarError(Symbol cur_token, String message){
+
+        listaErrores.add(new ErrorObj(ErrorType.SINTACTICO,cur_token.toString(), message, cur_token.left, cur_token.right));
+
+    }
+
+    public List<ErrorObj> getListaErrores(){
+        return listaErrores;
+    }
+
+    public Graficador getGraficador(){
+        return graficador;
     }
 
 
@@ -460,6 +492,7 @@ class CUP$GraficadorCup$actions {
           case 1: // D ::= DEF G D 
             {
               Object RESULT =null;
+
               CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("D",0, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
@@ -492,7 +525,124 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // BA ::= T BA 
+          case 5: // G ::= error LLAVE_A 
+            {
+              Object RESULT =null;
+		agregarError(cur_token, "Se esperaba '{''");
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("G",1, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+            }
+          return CUP$GraficadorCup$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 6: // G ::= error LLAVE_C 
+            {
+              Object RESULT =null;
+		agregarError(cur_token, "Se esperaba '}''");
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("G",1, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+            }
+          return CUP$GraficadorCup$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 7: // G ::= error DOS_PUNTOS 
+            {
+              Object RESULT =null;
+		agregarError(cur_token, "Se esperaba ':''");
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("G",1, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+            }
+          return CUP$GraficadorCup$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 8: // G ::= error PUNTO_COMA 
+            {
+              Object RESULT =null;
+		agregarError(cur_token, "Se esperaba ';''");
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("G",1, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+            }
+          return CUP$GraficadorCup$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 9: // G ::= error CORCHETE_A 
+            {
+              Object RESULT =null;
+		agregarError(cur_token, "Se esperaba '[''");
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("G",1, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+            }
+          return CUP$GraficadorCup$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 10: // G ::= error CORCHETE_C 
+            {
+              Object RESULT =null;
+		agregarError(cur_token, "Se esperaba '}''");
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("G",1, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+            }
+          return CUP$GraficadorCup$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 11: // G ::= error SUMA 
+            {
+              Object RESULT =null;
+		agregarError(cur_token, "Se esperaba '+''");
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("G",1, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+            }
+          return CUP$GraficadorCup$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 12: // G ::= error RESTA 
+            {
+              Object RESULT =null;
+		agregarError(cur_token, "Se esperaba '-''");
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("G",1, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+            }
+          return CUP$GraficadorCup$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 13: // G ::= error MULTIPLICACION 
+            {
+              Object RESULT =null;
+		agregarError(cur_token, "Se esperaba '*''");
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("G",1, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+            }
+          return CUP$GraficadorCup$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 14: // G ::= error DIVISION 
+            {
+              Object RESULT =null;
+		agregarError(cur_token, "Se esperaba '/''");
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("G",1, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+            }
+          return CUP$GraficadorCup$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 15: // G ::= error PARENTESIS_A 
+            {
+              Object RESULT =null;
+		agregarError(cur_token, "Se esperaba '(''");
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("G",1, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+            }
+          return CUP$GraficadorCup$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 16: // G ::= error PARENTESIS_C 
+            {
+              Object RESULT =null;
+		agregarError(cur_token, "Se esperaba ')''");
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("G",1, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+            }
+          return CUP$GraficadorCup$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 17: // G ::= error COMA 
+            {
+              Object RESULT =null;
+		agregarError(cur_token, "Se esperaba ',''");
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("G",1, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+            }
+          return CUP$GraficadorCup$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 18: // BA ::= T BA 
             {
               Object RESULT =null;
 		tituloCreado = true;
@@ -501,7 +651,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // BA ::= X BA 
+          case 19: // BA ::= X BA 
             {
               Object RESULT =null;
 		ejeXCreado = true;
@@ -510,7 +660,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // BA ::= Y BA 
+          case 20: // BA ::= Y BA 
             {
               Object RESULT =null;
 		ejeYCreado = true;
@@ -519,7 +669,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // BA ::= U BA 
+          case 21: // BA ::= U BA 
             {
               Object RESULT =null;
 		tuplasCreadas = true;
@@ -528,7 +678,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // BA ::= T 
+          case 22: // BA ::= T 
             {
               Object RESULT =null;
 		tituloCreado = true;
@@ -537,7 +687,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // BA ::= X 
+          case 23: // BA ::= X 
             {
               Object RESULT =null;
 		ejeXCreado = true;
@@ -546,7 +696,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // BA ::= Y 
+          case 24: // BA ::= Y 
             {
               Object RESULT =null;
 		ejeYCreado = true;
@@ -555,7 +705,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // BA ::= U 
+          case 25: // BA ::= U 
             {
               Object RESULT =null;
 		tuplasCreadas = true;
@@ -564,7 +714,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // T ::= TITULO DOS_PUNTOS CADENA PUNTO_COMA 
+          case 26: // T ::= TITULO DOS_PUNTOS CADENA PUNTO_COMA 
             {
               Object RESULT =null;
 		int cadenaleft = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).left;
@@ -576,16 +726,16 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // X ::= EJEX DOS_PUNTOS CORCHETE_A C CORCHETE_C PUNTO_COMA 
+          case 27: // X ::= EJEX DOS_PUNTOS CORCHETE_A C CORCHETE_C PUNTO_COMA 
             {
               Object RESULT =null;
-		agregarEjeX();
+		agregarEjeX();System.out.println("ESTA ENTRANDO");
               CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("X",5, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-5)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 15: // C ::= CADENA 
+          case 28: // C ::= CADENA 
             {
               Object RESULT =null;
 		int cadena1left = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).left;
@@ -597,7 +747,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // C ::= CADENA COMA C 
+          case 29: // C ::= CADENA COMA C 
             {
               Object RESULT =null;
 		int cadena1left = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).left;
@@ -609,49 +759,49 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // Y ::= EJEY DOS_PUNTOS CORCHETE_A LN CORCHETE_C PUNTO_COMA 
+          case 30: // Y ::= EJEY DOS_PUNTOS CORCHETE_A LN CORCHETE_C PUNTO_COMA 
             {
               Object RESULT =null;
-		System.out.println("CREANDO EJEY");
+		
               CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("Y",6, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-5)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // LN ::= EXPD COMA LN 
+          case 31: // LN ::= EXPD COMA LN 
             {
               Object RESULT =null;
 		int expdleft = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).left;
 		int expdright = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).right;
 		Double expd = (Double)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).value;
 		agregarEjeY(expd);
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("LN",18, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("LN",17, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // LN ::= EXPD 
+          case 32: // LN ::= EXPD 
             {
               Object RESULT =null;
 		int expdleft = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).left;
 		int expdright = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).right;
 		Double expd = (Double)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.peek()).value;
 		agregarEjeY(expd);
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("LN",18, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("LN",17, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // U ::= UNIR DOS_PUNTOS CORCHETE_A TUP CORCHETE_C PUNTO_COMA 
+          case 33: // U ::= UNIR DOS_PUNTOS CORCHETE_A TUP CORCHETE_C PUNTO_COMA 
             {
               Object RESULT =null;
-		System.out.println("CREANDO UNIR");
+
               CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("U",7, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-5)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // TUP ::= LLAVE_A VAL LLAVE_C 
+          case 34: // TUP ::= LLAVE_A VAL LLAVE_C 
             {
               Object RESULT =null;
 
@@ -660,7 +810,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // TUP ::= LLAVE_A VAL LLAVE_C COMA TUP 
+          case 35: // TUP ::= LLAVE_A VAL LLAVE_C COMA TUP 
             {
               Object RESULT =null;
 
@@ -669,7 +819,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // VAL ::= EXP COMA EXP 
+          case 36: // VAL ::= EXP COMA EXP 
             {
               Object RESULT =null;
 		int e1left = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).left;
@@ -684,7 +834,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // EXP ::= EXP SUMA EXP 
+          case 37: // EXP ::= EXP SUMA EXP 
             {
               Integer RESULT =null;
 		int e1left = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).left;
@@ -694,12 +844,12 @@ class CUP$GraficadorCup$actions {
 		int e2right = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).right;
 		Integer e2 = (Integer)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.peek()).value;
 		RESULT = new Integer(e1.intValue() + e2.intValue());
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXP",19, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXP",18, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // EXP ::= EXP RESTA EXP 
+          case 38: // EXP ::= EXP RESTA EXP 
             {
               Integer RESULT =null;
 		int e1left = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).left;
@@ -709,12 +859,12 @@ class CUP$GraficadorCup$actions {
 		int e2right = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).right;
 		Integer e2 = (Integer)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.peek()).value;
 		RESULT = new Integer(e1.intValue() - e2.intValue());
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXP",19, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXP",18, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // EXP ::= EXP MULTIPLICACION EXP 
+          case 39: // EXP ::= EXP MULTIPLICACION EXP 
             {
               Integer RESULT =null;
 		int e1left = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).left;
@@ -724,12 +874,12 @@ class CUP$GraficadorCup$actions {
 		int e2right = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).right;
 		Integer e2 = (Integer)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.peek()).value;
 		RESULT = new Integer(e1.intValue() * e2.intValue());
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXP",19, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXP",18, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 27: // EXP ::= EXP DIVISION EXP 
+          case 40: // EXP ::= EXP DIVISION EXP 
             {
               Integer RESULT =null;
 		int e1left = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).left;
@@ -739,36 +889,36 @@ class CUP$GraficadorCup$actions {
 		int e2right = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).right;
 		Integer e2 = (Integer)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.peek()).value;
 		RESULT = new Integer(e1.intValue() / e2.intValue());
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXP",19, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXP",18, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 28: // EXP ::= ENTERO 
+          case 41: // EXP ::= ENTERO 
             {
               Integer RESULT =null;
 		int nleft = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).left;
 		int nright = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).right;
 		Integer n = (Integer)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.peek()).value;
 		RESULT = n;
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXP",19, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXP",18, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 29: // EXP ::= PARENTESIS_A EXP PARENTESIS_C 
+          case 42: // EXP ::= PARENTESIS_A EXP PARENTESIS_C 
             {
               Integer RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).right;
 		Integer e = (Integer)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).value;
 		RESULT = e;
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXP",19, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXP",18, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 30: // EXPD ::= EXPD SUMA EXPD 
+          case 43: // EXPD ::= EXPD SUMA EXPD 
             {
               Double RESULT =null;
 		int ed1left = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).left;
@@ -778,12 +928,12 @@ class CUP$GraficadorCup$actions {
 		int ed2right = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).right;
 		Double ed2 = (Double)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.peek()).value;
 		RESULT = new Double(ed1.intValue() + ed2.intValue());
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXPD",20, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXPD",19, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 31: // EXPD ::= EXPD RESTA EXPD 
+          case 44: // EXPD ::= EXPD RESTA EXPD 
             {
               Double RESULT =null;
 		int ed1left = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).left;
@@ -793,12 +943,12 @@ class CUP$GraficadorCup$actions {
 		int ed2right = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).right;
 		Double ed2 = (Double)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.peek()).value;
 		RESULT = new Double(ed1.intValue() - ed2.intValue());
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXPD",20, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXPD",19, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 32: // EXPD ::= EXPD MULTIPLICACION EXPD 
+          case 45: // EXPD ::= EXPD MULTIPLICACION EXPD 
             {
               Double RESULT =null;
 		int ed1left = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).left;
@@ -808,12 +958,12 @@ class CUP$GraficadorCup$actions {
 		int ed2right = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).right;
 		Double ed2 = (Double)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.peek()).value;
 		RESULT = new Double(ed1.intValue() * ed2.intValue());
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXPD",20, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXPD",19, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 33: // EXPD ::= EXPD DIVISION EXPD 
+          case 46: // EXPD ::= EXPD DIVISION EXPD 
             {
               Double RESULT =null;
 		int ed1left = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).left;
@@ -823,48 +973,48 @@ class CUP$GraficadorCup$actions {
 		int ed2right = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).right;
 		Double ed2 = (Double)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.peek()).value;
 		RESULT = new Double(ed1.intValue() / ed2.intValue());
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXPD",20, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXPD",19, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 34: // EXPD ::= ENTERO 
+          case 47: // EXPD ::= ENTERO 
             {
               Double RESULT =null;
 		int nleft = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).left;
 		int nright = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).right;
 		Integer n = (Integer)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.peek()).value;
 		RESULT = Double.valueOf(n);
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXPD",20, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXPD",19, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 35: // EXPD ::= DECIMAL 
+          case 48: // EXPD ::= DECIMAL 
             {
               Double RESULT =null;
 		int dleft = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).left;
 		int dright = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).right;
 		Double d = (Double)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.peek()).value;
 		RESULT = d;
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXPD",20, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXPD",19, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 36: // EXPD ::= PARENTESIS_A EXPD PARENTESIS_C 
+          case 49: // EXPD ::= PARENTESIS_A EXPD PARENTESIS_C 
             {
               Double RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).right;
 		Double e = (Double)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).value;
 		RESULT = e;
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXPD",20, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EXPD",19, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 37: // PA ::= T PA 
+          case 50: // PA ::= T PA 
             {
               Object RESULT =null;
 		tituloCreado = true;
@@ -873,7 +1023,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 38: // PA ::= TP PA 
+          case 51: // PA ::= TP PA 
             {
               Object RESULT =null;
 		tipoCreado = true;
@@ -882,7 +1032,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 39: // PA ::= E PA 
+          case 52: // PA ::= E PA 
             {
               Object RESULT =null;
 		etiquetaCreada = true;
@@ -891,7 +1041,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 40: // PA ::= V PA 
+          case 53: // PA ::= V PA 
             {
               Object RESULT =null;
 		valorCreado = true;
@@ -900,7 +1050,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 41: // PA ::= EX PA 
+          case 54: // PA ::= EX PA 
             {
               Object RESULT =null;
 		extraCreado = true;
@@ -909,7 +1059,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 42: // PA ::= TOT PA 
+          case 55: // PA ::= TOT PA 
             {
               Object RESULT =null;
 		totalCreado = true;
@@ -918,7 +1068,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 43: // PA ::= U PA 
+          case 56: // PA ::= U PA 
             {
               Object RESULT =null;
 		tuplasCreadas = true;
@@ -927,7 +1077,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 44: // PA ::= U 
+          case 57: // PA ::= U 
             {
               Object RESULT =null;
 		tuplasCreadas = true;
@@ -936,7 +1086,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 45: // PA ::= T 
+          case 58: // PA ::= T 
             {
               Object RESULT =null;
 		tituloCreado = true;
@@ -945,7 +1095,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 46: // PA ::= TP 
+          case 59: // PA ::= TP 
             {
               Object RESULT =null;
 		tipoCreado = true;
@@ -954,7 +1104,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 47: // PA ::= E 
+          case 60: // PA ::= E 
             {
               Object RESULT =null;
 		etiquetaCreada = true;
@@ -963,7 +1113,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 48: // PA ::= V 
+          case 61: // PA ::= V 
             {
               Object RESULT =null;
 		valorCreado = true;
@@ -972,7 +1122,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 49: // PA ::= EX 
+          case 62: // PA ::= EX 
             {
               Object RESULT =null;
 		extraCreado = true;
@@ -981,7 +1131,7 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 50: // PA ::= TOT 
+          case 63: // PA ::= TOT 
             {
               Object RESULT =null;
 		totalCreado = true;
@@ -990,79 +1140,79 @@ class CUP$GraficadorCup$actions {
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 51: // TP ::= TIPO DOS_PUNTOS CANTIDAD PUNTO_COMA 
+          case 64: // TP ::= TIPO DOS_PUNTOS CANTIDAD PUNTO_COMA 
             {
               Object RESULT =null;
 		agregarTipo(Tipo.CANTIDAD);
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("TP",14, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-3)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("TP",13, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-3)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 52: // TP ::= TIPO DOS_PUNTOS PORCENTAJE PUNTO_COMA 
+          case 65: // TP ::= TIPO DOS_PUNTOS PORCENTAJE PUNTO_COMA 
             {
               Object RESULT =null;
 		agregarTipo(Tipo.PORCENTAJE);
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("TP",14, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-3)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("TP",13, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-3)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 53: // TOT ::= TOTAL DOS_PUNTOS EXPD PUNTO_COMA 
+          case 66: // TOT ::= TOTAL DOS_PUNTOS EXPD PUNTO_COMA 
             {
               Object RESULT =null;
 		int expdleft = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).left;
 		int expdright = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).right;
 		Double expd = (Double)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).value;
 		agregarTotal(expd);
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("TOT",13, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-3)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("TOT",12, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-3)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 54: // E ::= ETIQUETAS DOS_PUNTOS CORCHETE_A C CORCHETE_C PUNTO_COMA 
+          case 67: // E ::= ETIQUETAS DOS_PUNTOS CORCHETE_A C CORCHETE_C PUNTO_COMA 
             {
               Object RESULT =null;
 		agregarEtiqueta();
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("E",15, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-5)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("E",14, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-5)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 55: // EX ::= EXTRA DOS_PUNTOS CADENA PUNTO_COMA 
+          case 68: // EX ::= EXTRA DOS_PUNTOS CADENA PUNTO_COMA 
             {
               Object RESULT =null;
 		int cadenaleft = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).left;
 		int cadenaright = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).right;
 		String cadena = (String)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).value;
 		agregarExtra(cadena);
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EX",16, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-3)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("EX",15, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-3)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 56: // V ::= VALORES DOS_PUNTOS CORCHETE_A N CORCHETE_C PUNTO_COMA 
+          case 69: // V ::= VALORES DOS_PUNTOS CORCHETE_A N CORCHETE_C PUNTO_COMA 
             {
               Object RESULT =null;
 
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("V",17, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-5)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("V",16, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-5)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 57: // N ::= EXPD N 
+          case 70: // N ::= EXPD COMA N 
             {
               Object RESULT =null;
-		int expdleft = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).left;
-		int expdright = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).right;
-		Double expd = (Double)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)).value;
+		int expdleft = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).left;
+		int expdright = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).right;
+		Double expd = (Double)((java_cup.runtime.Symbol) CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)).value;
 		agregarValor(expd);
-              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("N",11, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-1)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
+              CUP$GraficadorCup$result = parser.getSymbolFactory().newSymbol("N",11, ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.elementAt(CUP$GraficadorCup$top-2)), ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()), RESULT);
             }
           return CUP$GraficadorCup$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 58: // N ::= EXPD 
+          case 71: // N ::= EXPD 
             {
               Object RESULT =null;
 		int expdleft = ((java_cup.runtime.Symbol)CUP$GraficadorCup$stack.peek()).left;

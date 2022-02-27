@@ -1,15 +1,17 @@
 package com.example.models;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Grafica {
+public abstract class Grafica implements Serializable {
 
     protected String titulo;
-    protected List<Tupla> listaTupla;
+    protected List<Tupla> listaTupla = new ArrayList<>();
 
     public Grafica(String titulo, List<Tupla> listaTupla) {
         this.titulo = titulo;
-        this.listaTupla = listaTupla;
+        this.listaTupla.addAll(listaTupla);
     }
 
     public String getTitulo() {

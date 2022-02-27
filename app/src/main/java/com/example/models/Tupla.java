@@ -1,6 +1,8 @@
 package com.example.models;
 
-public class Tupla {
+import java.io.Serializable;
+
+public class Tupla implements Serializable {
 
     private Integer valorL;
     private Integer valorR;
@@ -24,5 +26,13 @@ public class Tupla {
 
     public void setValorR(Integer valorR) {
         this.valorR = valorR;
+    }
+
+    @Override
+    public String toString() {
+        return "Tupla{" +
+                "valorL=" + valorL +
+                ", valorR=" + valorR +
+                '}';
     }
 }

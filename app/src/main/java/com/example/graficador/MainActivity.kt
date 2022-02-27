@@ -1,56 +1,59 @@
 package com.example.graficador
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import com.example.jflex_cup.graficadorcup.EjecutarCup
 import com.example.jflex_cup.graficadorcup.GraficadorCup
+import com.example.jflex_cup.graficadorflex.EjecutarLexico
 import com.example.jflex_cup.graficadorflex.GraficadorLexico
+import com.example.models.Grafica
 import java.io.StringReader
 
 class MainActivity : AppCompatActivity() {
 
-    var boton: Button? = null;
-    var codificacionEntrada: EditText? = null;
-    var ejecucionEntrada: EditText? = null;
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        init();
-    }
 
-    fun init(){
+        val buttonEjecutar = findViewById<Button>(R.id.ejecutarBoton);
 
-        iniciarEntradas();
-        iniciarBoton();
+        buttonEjecutar.setOnClickListener {
+            val ejecutarCup = EjecutarCup(EjecutarLexico(StringReader(findViewById<EditText>(R.id.ejecucionEntrada).text.toString())));
 
-    }
+            try {
+                ejecutarCup.parse();
+                val ejecutarLista = ejecutarCup.graficasEjecutar;
 
-    fun iniciarBoton(){
-        boton = findViewById(R.id.ejecutarBoton)
-        boton?.setOnClickListener {
-
-            var texto = codificacionEntrada?.text;
-            var graficador = GraficadorCup(GraficadorLexico(StringReader(texto.toString())));
+                if(ejecutarLista.isNotEmpty()){
+                    val graficadorLexico = GraficadorLexico(StringReader(findViewById<EditText>(R.id.codificacionEntrada).text.toString()));
+                    val graficadorCup = GraficadorCup(graficadorLexico);
 
 
+                    graficadorCup.parse();
 
-            try{
-                graficador.parse();
+                    if(graficadorLexico.listaErrores.isEmpty() && graficadorCup.listaErrores.isEmpty()){
+
+                        graficadorCup.graficador.filtrarGraficas(ejecutarLista);
+                        val intent = Intent(this, GraficasActivity::class.java);
+                        intent.putExtra("valor", graficadorCup.graficador);
+                        startActivity(intent);
+                    } else{
+                        System.err.println("*NO SE CREA NADA POR ERRORES.");
+                        graficadorCup.listaErrores.forEach(System.out::println);
+                    }
+
+                } else {
+                    System.err.println("*NO HACE NADA");
+                }
+
             } catch (e: java.lang.Exception){
-                error("un error");
+                System.err.println("ALGO SALIO MAL :C");
+                System.err.println(e.message)
             }
         }
-
-    }
-
-    fun iniciarEntradas(){
-
-        codificacionEntrada = findViewById(R.id.codificacionEntrada);
-        ejecucionEntrada = findViewById(R.id.ejecucionEntrada);
-
     }
 
 }

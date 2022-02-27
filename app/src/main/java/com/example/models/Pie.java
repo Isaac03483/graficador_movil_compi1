@@ -1,19 +1,20 @@
 package com.example.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pie extends Grafica{
 
-    private List<String> etiquetas;
-    private List<Double> valores;
+    private List<String> etiquetas = new ArrayList<>();
+    private List<Double> valores = new ArrayList<>();
     private Tipo tipo;
     private Double total;
     private String extra;
 
     public Pie(String titulo, List<Tupla> listaTupla, List<String> etiquetas, List<Double> valores, Tipo tipo, Double total, String extra) {
         super(titulo, listaTupla);
-        this.etiquetas = etiquetas;
-        this.valores = valores;
+        this.etiquetas.addAll(etiquetas);
+        this.valores.addAll(valores);
         this.tipo = tipo;
         this.total = total;
         this.extra = extra;

@@ -1,11 +1,11 @@
 package com.example.models;
 
-import android.os.Build;
-
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Graficador {
+public class Graficador implements  Serializable {
 
     private String titulo;
     private List<String> ejeX;
@@ -37,12 +37,12 @@ public class Graficador {
         this.titulo = titulo;
     }
 
-    public void setEjeX(List<String> ejeX) {
-        this.ejeX = ejeX;
+    public void setEjeX(List<String> lista) {
+        this.ejeX.addAll(lista);
     }
 
     public void setEtiqueta(List<String> etiqueta) {
-        this.etiqueta = etiqueta;
+        this.etiqueta.addAll(etiqueta);
     }
 
     public void setTipo(Tipo tipo) {
@@ -75,7 +75,10 @@ public class Graficador {
     }
 
     public void crearGraficaBarras(){
-        graficas.add(new Barras(this.titulo, this.tuplas, this.ejeX, this.ejeY));
+        Collections.reverse(this.ejeX);
+        Collections.reverse(this.ejeY);
+        graficas.add(new Barra(this.titulo, this.tuplas, this.ejeX, this.ejeY));
+
         this.titulo = null;
         this.tuplas.clear();
         this.ejeX.clear();
@@ -88,6 +91,8 @@ public class Graficador {
             this.total = 360.0;
         }
 
+        Collections.reverse(this.etiqueta);
+        Collections.reverse(this.valor);
         graficas.add(new Pie(this.titulo, this.tuplas, this.etiqueta, this.valor, this.tipo, this.total,this.extra));
         this.titulo = null;
         this.tuplas.clear();
@@ -96,6 +101,25 @@ public class Graficador {
         this.tipo = null;
         this.total = null;
         this.extra = null;
-        System.out.println("graficas.size() = " + graficas.size());
+        System.out.println(graficas.get(graficas.size()-1));
     }
+
+    public void filtrarGraficas(List<String> ejecutarGraficas){
+        List<Grafica> graficaList = new ArrayList<>();
+        for(String eGrafica: ejecutarGraficas){
+            for(Grafica grafica: graficas){
+                if(grafica.titulo.equals(eGrafica)){
+                    graficaList.add(grafica);
+                    break;
+                }
+            }
+        }
+
+        graficas = graficaList;
+    }
+
+    public List<Grafica> getGraficas() {
+        return graficas;
+    }
+
 }

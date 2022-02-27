@@ -1,6 +1,6 @@
 /*SECCIÓN 1: CÓDIGO*/
 /*CODIGO PARA LA CREACIÓN DEL CUP:
-java -jar java-cup-11b.jar -parser GraficadorCup /home/ameri/Escritorio/2022/compis_uno/Graficador/app/src/main/java/com/example/jflex_cup/graficadorcup/graficadorCup.cup
+java -jar java-cup-11b.jar -parser GraficadorCup /home/ameri/Escritorio/2022/compis_uno/Graficador/app/src/main/java/com/ameri/jflex_cup/graficadorcup/graficadorCup.cup
 */
 
 /* TEXTO PARA PRUEBAS
@@ -8,7 +8,7 @@ Def Barras {
     titulo: "titulo de prueba";
     ejex: ["eje 1", "eje 2"];
     ejey: [3,4+2];
-    unir:[{1,2},{1,1}];
+    unir:[{0,0},{1,1}];
 }
 
 Def Pie{
@@ -28,6 +28,7 @@ package com.example.jflex_cup.graficadorcup;
 import java_cup.runtime.*;
 import com.example.models.Graficador;
 import com.example.models.Tipo;
+import com.example.error.*;
 import java.util.ArrayList;
 import java.util.List;
 import com.example.jflex_cup.graficadorflex.GraficadorLexico;
@@ -48,8 +49,7 @@ parser code {:
     }
 
     public void syntax_error(Symbol cur_token) {
-        System.out.println("El error es el simbolo: " + sym.terminalNames[cur_token.sym]);
-        System.out.println(String.format("En la posicion: %d, %d", cur_token.left, cur_token.right));
+
     }
 
     public void unrecovered_syntax_error(Symbol cur_token) {
@@ -69,9 +69,12 @@ parser code {:
     boolean extraCreado = false;
     Graficador graficador = new Graficador();
     List<String> poolString = new ArrayList<>();
+    List<ErrorObj> listaErrores = new ArrayList<>();
 
     public void agregarPoolString(String cadena){
         poolString.add(cadena);
+        System.out.println("ESTA ES UNA PRUEBA DE QUE ESTA ENTRANDO AL POOLSTRING: "+cadena);
+        poolString.size();
     }
 
     public void agregarTitulo(String cadena){
@@ -147,7 +150,6 @@ parser code {:
     }
 
     public void crearBarras(){
-
         if(tituloCreado && ejeXCreado && ejeYCreado && tuplasCreadas){
             graficador.crearGraficaBarras();
         } else {
@@ -179,6 +181,20 @@ parser code {:
         extraCreado = false;
         poolString.clear();
     }
+
+    private void agregarError(Symbol cur_token, String message){
+
+        listaErrores.add(new ErrorObj(ErrorType.SINTACTICO,cur_token.toString(), message, cur_token.left, cur_token.right));
+
+    }
+
+    public List<ErrorObj> getListaErrores(){
+        return listaErrores;
+    }
+
+    public Graficador getGraficador(){
+        return graficador;
+    }
 :}
 
 /*SECCIÓN DE TERMINALES*/
@@ -191,7 +207,7 @@ terminal Integer ENTERO;
 terminal Double DECIMAL;
 
 /*SECCIÓN DE NO TERMINALES*/
-non terminal D, G, BA, PA, T, X, Y, U, C, TUP, VAL, N, S, TOT, TP;
+non terminal D, G, BA, PA, T, X, Y, U, C, TUP, VAL, N, TOT, TP;
 non terminal E, EX, V, LN/*EXPP,*/;
 non terminal Integer EXP;
 non terminal Double EXPD;
@@ -207,12 +223,25 @@ precedence left BARRAS, PIE;
 /*GRAMÁTICA TIPO 2: REGLAS SINTÁCTICAS*/
 start with D;
 
-D ::= DEF G D                                               {:graficador.imprimirGraficas();:}
+D ::= DEF G D
     | DEF G
     ;
 
 G ::= BARRAS LLAVE_A BA LLAVE_C                                 {:crearBarras();:}
     | PIE LLAVE_A PA LLAVE_C                                    {:crearPie();:}
+    | error LLAVE_A                                             {:agregarError(cur_token, "Se esperaba '{''");:}
+    | error LLAVE_C                                             {:agregarError(cur_token, "Se esperaba '}''");:}
+    | error DOS_PUNTOS                                          {:agregarError(cur_token, "Se esperaba ':''");:}
+    | error PUNTO_COMA                                          {:agregarError(cur_token, "Se esperaba ';''");:}
+    | error CORCHETE_A                                          {:agregarError(cur_token, "Se esperaba '[''");:}
+    | error CORCHETE_C                                          {:agregarError(cur_token, "Se esperaba '}''");:}
+    | error SUMA                                                {:agregarError(cur_token, "Se esperaba '+''");:}
+    | error RESTA                                               {:agregarError(cur_token, "Se esperaba '-''");:}
+    | error MULTIPLICACION                                      {:agregarError(cur_token, "Se esperaba '*''");:}
+    | error DIVISION                                            {:agregarError(cur_token, "Se esperaba '/''");:}
+    | error PARENTESIS_A                                        {:agregarError(cur_token, "Se esperaba '(''");:}
+    | error PARENTESIS_C                                        {:agregarError(cur_token, "Se esperaba ')''");:}
+    | error COMA                                                {:agregarError(cur_token, "Se esperaba ',''");:}
     ;
 
 BA ::= T BA                                                 {:tituloCreado = true;:}
@@ -224,28 +253,43 @@ BA ::= T BA                                                 {:tituloCreado = tru
     |Y                                                      {:ejeYCreado = true;:}
     |U                                                      {:tuplasCreadas = true;:}
     ;
-T ::= TITULO DOS_PUNTOS CADENA:cadena PUNTO_COMA                       {:agregarTitulo(cadena);:}
+T ::= TITULO DOS_PUNTOS CADENA:cadena PUNTO_COMA                        {:agregarTitulo(cadena);:}
     ;
 
-X ::= EJEX DOS_PUNTOS CORCHETE_A C CORCHETE_C PUNTO_COMA        {:agregarEjeX();:}
+X ::= EJEX DOS_PUNTOS CORCHETE_A C CORCHETE_C PUNTO_COMA        {:agregarEjeX();System.out.println("ESTA ENTRANDO");:}
+ /*   | error DOS_PUNTOS                                          {:agregarError(cur_token, "Se esperaba ':''");:}
+    | error PUNTO_COMA                                          {:agregarError(cur_token, "Se esperaba ';''");:}
+    | error CORCHETE_A                                          {:agregarError(cur_token, "Se esperaba '[''");:}
+    | error CORCHETE_C                                          {:agregarError(cur_token, "Se esperaba '}''");:}*/
     ;
 
 C ::= CADENA:cadena1                                            {:agregarPoolString(cadena1);:}
     | CADENA:cadena1 COMA C                                     {:agregarPoolString(cadena1);:}
     ;
 
-Y ::= EJEY DOS_PUNTOS CORCHETE_A LN CORCHETE_C PUNTO_COMA       {:System.out.println("CREANDO EJEY");:}
+Y ::= EJEY DOS_PUNTOS CORCHETE_A LN CORCHETE_C PUNTO_COMA       {::}
+  /*  | error DOS_PUNTOS                                          {:agregarError(cur_token, "Se esperaba ':''");:}
+    | error PUNTO_COMA                                          {:agregarError(cur_token, "Se esperaba ';''");:}
+    | error CORCHETE_A                                          {:agregarError(cur_token, "Se esperaba '[''");:}
+    | error CORCHETE_C                                          {:agregarError(cur_token, "Se esperaba '}''");:}*/
     ;
 
 LN ::= EXPD:expd COMA LN                                        {:agregarEjeY(expd);:}
     | EXPD:expd                                                 {:agregarEjeY(expd);:}
     ;
 
-U ::= UNIR DOS_PUNTOS CORCHETE_A TUP CORCHETE_C PUNTO_COMA      {:System.out.println("CREANDO UNIR");:}
+U ::= UNIR DOS_PUNTOS CORCHETE_A TUP CORCHETE_C PUNTO_COMA
+ /*   | error DOS_PUNTOS                                          {:agregarError(cur_token, "Se esperaba ':''");:}
+    | error PUNTO_COMA                                          {:agregarError(cur_token, "Se esperaba ';''");:}
+    | error CORCHETE_A                                          {:agregarError(cur_token, "Se esperaba '[''");:}
+    | error CORCHETE_C                                          {:agregarError(cur_token, "Se esperaba '}''");:}*/
     ;
 
 TUP ::= LLAVE_A VAL LLAVE_C
     | LLAVE_A VAL LLAVE_C COMA TUP
+ /*   | error LLAVE_A                                             {:agregarError(cur_token, "Se esperaba '{''");:}
+    | error LLAVE_C                                             {:agregarError(cur_token, "Se esperaba '}''");:}
+    | error COMA                                                {:agregarError(cur_token, "Se esperaba ',''");:}*/
     ;
 
 VAL ::= EXP:e1 COMA EXP:e2                  {:agregarTupla(e1,e2);:}
@@ -253,7 +297,7 @@ VAL ::= EXP:e1 COMA EXP:e2                  {:agregarTupla(e1,e2);:}
 
 /*
 EXPP ::= EXP EXPP
-    | EXP:e                                 {:System.out.println(e);:}
+    | EXP:e
     ;
 */
 
@@ -263,6 +307,7 @@ EXP ::= EXP:e1 SUMA EXP:e2                  {:RESULT = new Integer(e1.intValue()
     | EXP:e1 DIVISION EXP:e2                {:RESULT = new Integer(e1.intValue() / e2.intValue());:}
     | ENTERO:n                              {:RESULT = n;:}
     | PARENTESIS_A EXP:e PARENTESIS_C       {:RESULT = e;:}
+
     ;
 
 EXPD::=  EXPD:ed1 SUMA EXPD:ed2             {:RESULT = new Double(ed1.intValue() + ed2.intValue());:}
@@ -272,6 +317,12 @@ EXPD::=  EXPD:ed1 SUMA EXPD:ed2             {:RESULT = new Double(ed1.intValue()
     | ENTERO:n                              {:RESULT = Double.valueOf(n);:}
     | DECIMAL:d                             {:RESULT = d;:}
     | PARENTESIS_A EXPD:e PARENTESIS_C      {:RESULT = e;:}
+/*    | error SUMA                            {:agregarError(cur_token, "Se esperaba '+''");:}
+    | error RESTA                           {:agregarError(cur_token, "Se esperaba '-''");:}
+    | error MULTIPLICACION                  {:agregarError(cur_token, "Se esperaba '*''");:}
+    | error DIVISION                        {:agregarError(cur_token, "Se esperaba '/''");:}
+    | error PARENTESIS_A                    {:agregarError(cur_token, "Se esperaba '(''");:}
+    | error PARENTESIS_C                    {:agregarError(cur_token, "Se esperaba ')''");:}*/
     ;
 
 PA ::= T PA                                 {:tituloCreado = true;:}
@@ -292,20 +343,33 @@ PA ::= T PA                                 {:tituloCreado = true;:}
 
 TP ::= TIPO DOS_PUNTOS CANTIDAD PUNTO_COMA                          {:agregarTipo(Tipo.CANTIDAD);:}
     | TIPO DOS_PUNTOS PORCENTAJE PUNTO_COMA                         {:agregarTipo(Tipo.PORCENTAJE);:}
+/*    | error DOS_PUNTOS                                          {:agregarError(cur_token, "Se esperaba ':''");:}
+    | error PUNTO_COMA                                          {:agregarError(cur_token, "Se esperaba ';''");:}*/
     ;
 
 TOT ::= TOTAL DOS_PUNTOS EXPD:expd PUNTO_COMA                            {:agregarTotal(expd);:}
+/*    | error DOS_PUNTOS                                          {:agregarError(cur_token, "Se esperaba ':''");:}
+    | error PUNTO_COMA                                          {:agregarError(cur_token, "Se esperaba ';''");:}*/
     ;
 
 E ::= ETIQUETAS DOS_PUNTOS CORCHETE_A C CORCHETE_C PUNTO_COMA       {:agregarEtiqueta();:}
+/*    | error DOS_PUNTOS                                          {:agregarError(cur_token, "Se esperaba ':''");:}
+    | error PUNTO_COMA                                          {:agregarError(cur_token, "Se esperaba ';''");:}
+    | error CORCHETE_A                                          {:agregarError(cur_token, "Se esperaba '[''");:}
+    | error CORCHETE_C                                          {:agregarError(cur_token, "Se esperaba '}''");:}*/
     ;
 
 EX ::= EXTRA DOS_PUNTOS CADENA:cadena PUNTO_COMA                    {:agregarExtra(cadena);:}
+/*    | error DOS_PUNTOS                                          {:agregarError(cur_token, "Se esperaba ':''");:}
+    | error PUNTO_COMA                                          {:agregarError(cur_token, "Se esperaba ';''");:}*/
     ;
 
 V ::= VALORES DOS_PUNTOS CORCHETE_A N CORCHETE_C PUNTO_COMA
+/*    | error DOS_PUNTOS                                          {:agregarError(cur_token, "Se esperaba ':''");:}
+    | error PUNTO_COMA                                          {:agregarError(cur_token, "Se esperaba ';''");:}*/
     ;
 
-N ::= EXPD:expd N                                                   {:agregarValor(expd);:}
-    | EXPD:expd                                                     {:agregarValor(expd);:}
+N ::= EXPD:expd COMA N                                                  {:agregarValor(expd);:}
+    | EXPD:expd                                                         {:agregarValor(expd);:}
+/*    | error COMA                                                {:agregarError(cur_token, "Se esperaba ',''");:}*/
     ;

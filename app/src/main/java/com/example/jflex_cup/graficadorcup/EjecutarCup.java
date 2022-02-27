@@ -7,6 +7,8 @@ package com.example.jflex_cup.graficadorcup;
 
 import java_cup.runtime.*;
 import com.example.jflex_cup.graficadorflex.EjecutarLexico;
+import java.util.ArrayList;
+import java.util.List;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -116,6 +118,16 @@ public class EjecutarCup extends java_cup.runtime.lr_parser {
         }
     }
 
+    private List<String> graficasEjecutar = new ArrayList<>();
+
+    private void agregarGraficaEjecutar(String cadena){
+        graficasEjecutar.add(cadena);
+    }
+
+    public List<String> getGraficasEjecutar(){
+        return this.graficasEjecutar;
+    }
+
 
 
 /** Cup generated class to encapsulate user supplied action code.*/
@@ -160,7 +172,10 @@ class CUP$EjecutarCup$actions {
           case 1: // EJ ::= EJECUTAR PARENTESIS_A CADENA PARENTESIS_C PUNTO_COMA 
             {
               Object RESULT =null;
-
+		int cadenaleft = ((java_cup.runtime.Symbol)CUP$EjecutarCup$stack.elementAt(CUP$EjecutarCup$top-2)).left;
+		int cadenaright = ((java_cup.runtime.Symbol)CUP$EjecutarCup$stack.elementAt(CUP$EjecutarCup$top-2)).right;
+		String cadena = (String)((java_cup.runtime.Symbol) CUP$EjecutarCup$stack.elementAt(CUP$EjecutarCup$top-2)).value;
+		agregarGraficaEjecutar(cadena);
               CUP$EjecutarCup$result = parser.getSymbolFactory().newSymbol("EJ",0, ((java_cup.runtime.Symbol)CUP$EjecutarCup$stack.elementAt(CUP$EjecutarCup$top-4)), ((java_cup.runtime.Symbol)CUP$EjecutarCup$stack.peek()), RESULT);
             }
           return CUP$EjecutarCup$result;

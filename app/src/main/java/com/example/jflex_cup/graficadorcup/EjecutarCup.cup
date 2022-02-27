@@ -17,6 +17,8 @@ package com.example.jflex_cup.graficadorcup;
 
 import java_cup.runtime.*;
 import com.example.jflex_cup.graficadorflex.EjecutarLexico;
+import java.util.ArrayList;
+import java.util.List;
 
 parser code {:
 
@@ -43,6 +45,16 @@ parser code {:
         }
     }
 
+    private List<String> graficasEjecutar = new ArrayList<>();
+
+    private void agregarGraficaEjecutar(String cadena){
+        graficasEjecutar.add(cadena);
+    }
+
+    public List<String> getGraficasEjecutar(){
+        return this.graficasEjecutar;
+    }
+
 :}
 
 /*SECCIÓN DE TERMINALES*/
@@ -56,5 +68,5 @@ non terminal EJ;
 start with EJ;
 
 
-EJ ::= EJECUTAR PARENTESIS_A CADENA PARENTESIS_C PUNTO_COMA
+EJ ::= EJECUTAR PARENTESIS_A CADENA:cadena PARENTESIS_C PUNTO_COMA          {:agregarGraficaEjecutar(cadena);:}
     ;

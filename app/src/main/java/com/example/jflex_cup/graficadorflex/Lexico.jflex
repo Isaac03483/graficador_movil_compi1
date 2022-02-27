@@ -3,6 +3,9 @@ package com.example.jflex_cup.graficadorflex;
 
 import java_cup.runtime.*;
 import com.example.jflex_cup.graficadorcup.sym;
+import com.example.error.*;
+import java.util.ArrayList;
+import java.util.List;
 
 %%
 
@@ -17,6 +20,7 @@ import com.example.jflex_cup.graficadorcup.sym;
 
 %state COMENTARIO_BLOQUE
 %state CADENA_BLOQUE
+%state ERROR_BLOQUE
 
 BLANCO = [\r|\n|\r\n] | [ \t\f] | " "
 SALTO_LINEA = \n
@@ -59,10 +63,9 @@ LLAVE_C = "}"
         cadenaTemporal+=yytext;
     }
 
-    StringBuilder string = new StringBuilder();
+    List<ErrorObj> listaErrores = new ArrayList<>();
 
     private Symbol symbol(int type) {
-        System.out.println("tipo: "+sym.terminalNames[type]);
         Symbol symbol = new Symbol(type, yyline+1, yycolumn+1);
         if(type == sym.CADENA){
             cadenaTemporal = "";
@@ -71,17 +74,25 @@ LLAVE_C = "}"
     }
 
     private Symbol symbol(int type, Object value) {
-        System.out.println("tipo: "+sym.terminalNames[type]+" VALOR: "+value);
         Symbol symbol = new Symbol(type, yyline+1, yycolumn+1, value);
-        if(type == sym.CADENA){
-            cadenaTemporal = "";
-        }
+        cadenaTemporal = "";
+
         return symbol;
     }
 
-    private void error(String message) {
-        System.out.println("Error en linea: "+(yyline+1)+", columna "+(yycolumn+1)+" : "+message);
+    private void guardarError(){
+
+        listaErrores.add(new ErrorObj(ErrorType.LEXICO,cadenaTemporal,"Este simbolo no existe en el lenguaje", yyline+1, yycolumn+1));
+        cadenaTemporal = "";
     }
+
+    public List<ErrorObj> getListaErrores(){
+        return listaErrores;
+    }
+
+
+
+
 %}
 %%
 
@@ -120,6 +131,7 @@ LLAVE_C = "}"
     {CORCHETE_C}                    {return symbol(sym.CORCHETE_C);}
     {LLAVE_A}                       {return symbol(sym.LLAVE_A);}
     {LLAVE_C}                       {return symbol(sym.LLAVE_C);}
+    [^]                             {cambiarCadena(yytext());yybegin(ERROR_BLOQUE);}
 }
 
 <CADENA_BLOQUE>{
@@ -132,4 +144,8 @@ LLAVE_C = "}"
     [^]                             {;}
 }
 <<EOF>>                             {System.out.println("final del texto"); return symbol(sym.EOF);}
-[^]                                 {error("Simbolo invalido <"+ yytext()+">");}
+
+<ERROR_BLOQUE>{
+    {BLANCO}                        {cambiarCadena(yytext());guardarError();yybegin(YYINITIAL);}
+    [^]                             {cambiarCadena(yytext());}
+}
