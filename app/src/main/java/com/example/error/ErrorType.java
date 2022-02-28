@@ -1,6 +1,8 @@
 package com.example.error;
 
-public enum ErrorType {
+import java.io.Serializable;
+
+public enum ErrorType implements Serializable {
 
     LEXICO("Lexico"),
     SINTACTICO("Sintáctico");

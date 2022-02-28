@@ -4,12 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.models.Envoltura
 import com.example.jflex_cup.graficadorcup.EjecutarCup
 import com.example.jflex_cup.graficadorcup.GraficadorCup
 import com.example.jflex_cup.graficadorflex.EjecutarLexico
 import com.example.jflex_cup.graficadorflex.GraficadorLexico
-import com.example.models.Grafica
+import com.example.reportes.ReporteSigno
 import java.io.StringReader
 
 class MainActivity : AppCompatActivity() {
@@ -37,16 +40,40 @@ class MainActivity : AppCompatActivity() {
                     if(graficadorLexico.listaErrores.isEmpty() && graficadorCup.listaErrores.isEmpty()){
 
                         graficadorCup.graficador.filtrarGraficas(ejecutarLista);
-                        val intent = Intent(this, GraficasActivity::class.java);
-                        intent.putExtra("valor", graficadorCup.graficador);
-                        startActivity(intent);
+                        findViewById<Button>(R.id.graficasBoton).setOnClickListener {
+                            val intent = Intent(this, GraficasActivity::class.java);
+                            intent.putExtra("valor", graficadorCup.graficador);
+                            startActivity(intent);
+                        }
+
+                        findViewById<Button>(R.id.operadorBoton).setOnClickListener {
+                            val intent = Intent(this, OperadorActivity::class.java);
+                            intent.putExtra("listaOperador", Envoltura(graficadorLexico.reporte));
+                            startActivity(intent);
+                        }
+
+                        findViewById<TextView>(R.id.textoBarras).setText("NÚMERO DE GRÁFICAS DE BARRAS: "+graficadorCup.graficador.barrasContador);
+                        findViewById<TextView>(R.id.textoPies).setText("NÚMERO DE GRÁFICAS DE PIE: "+graficadorCup.graficador.pieContador);
+
+                        Toast.makeText(applicationContext, "Gráfica(s) generadas con éxito.", Toast.LENGTH_SHORT).show();
                     } else{
-                        System.err.println("*NO SE CREA NADA POR ERRORES.");
-                        graficadorCup.listaErrores.forEach(System.out::println);
+
+                        findViewById<Button>(R.id.errorBoton).setOnClickListener{
+                            val intent = Intent(this, ErrorActivity::class.java);
+                            intent.putExtra("errorSintactico",
+                                Envoltura(graficadorCup.listaErrores)
+                            );
+                            intent.putExtra("errorLexico",
+                                Envoltura(graficadorLexico.listaErrores)
+                            );
+                            startActivity(intent);
+                        }
+
+                        Toast.makeText(applicationContext, "Error al intentar compilar.", Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
-                    System.err.println("*NO HACE NADA");
+                    Toast.makeText(applicationContext, "Sintaxis invalida en el apartado de ejecución.", Toast.LENGTH_LONG).show();
                 }
 
             } catch (e: java.lang.Exception){

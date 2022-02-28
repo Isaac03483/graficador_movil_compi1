@@ -61,4 +61,52 @@
             android:background="#2342EF"
             android:layout_marginTop="15dp"/>
 
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/secondLinear"
+            android:layout_below="@+id/ejecutarBoton"
+            android:gravity="center_horizontal"
+
+            android:layout_marginTop="11dp">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GRAFICAS"
+                android:id="@+id/graficasBoton"
+                android:background="#4CAF50"
+
+        />
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ocurrencia de operadores"
+                android:id="@+id/operadorBoton"
+
+        />
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ERRORES"
+                android:background="#FF0101"
+                android:id="@+id/errorBoton"
+        />
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/secondLinear"
+            android:layout_marginTop="25dp"
+            android:text="NÚMERO DE GRÁFICAS DE BARRAS: 0"
+            android:id="@+id/textoBarras"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textoBarras"
+            android:layout_marginTop="5dp"
+            android:text="NÚMERO DE GRÁFICAS DE PIE: 0"
+            android:id="@+id/textoPies"/>
+
 </RelativeLayout>

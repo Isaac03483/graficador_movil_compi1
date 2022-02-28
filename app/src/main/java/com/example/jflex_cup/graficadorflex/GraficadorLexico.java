@@ -10,6 +10,7 @@ import com.example.jflex_cup.graficadorcup.sym;
 import com.example.error.*;
 import java.util.ArrayList;
 import java.util.List;
+import com.example.reportes.ReporteSigno;
 
 
 // See https://github.com/jflex-de/jflex/issues/222
@@ -329,6 +330,7 @@ public class GraficadorLexico implements java_cup.runtime.Scanner {
 
   /* user code: */
     String cadenaTemporal = "";
+    List<ReporteSigno> listaReporteSigno = new ArrayList<>();
 
     private void cambiarCadena(String yytext){
         cadenaTemporal+=yytext;
@@ -351,10 +353,12 @@ public class GraficadorLexico implements java_cup.runtime.Scanner {
         return symbol;
     }
 
-    private void guardarError(){
+    private void guardarError(int token){
 
-        listaErrores.add(new ErrorObj(ErrorType.LEXICO,cadenaTemporal,"Este simbolo no existe en el lenguaje", yyline+1, yycolumn+1));
-        cadenaTemporal = "";
+        if(token != sym.EOF || !cadenaTemporal.equals("")){
+            listaErrores.add(new ErrorObj(ErrorType.LEXICO,cadenaTemporal,"simbolo no reconocido", yyline+1, yycolumn+1));
+            cadenaTemporal = "";
+        }
     }
 
     public List<ErrorObj> getListaErrores(){
@@ -362,6 +366,13 @@ public class GraficadorLexico implements java_cup.runtime.Scanner {
     }
 
 
+    private void agregarSigno(String cadena){
+        listaReporteSigno.add(new ReporteSigno(cadena, yyline+1, yycolumn+1));
+    }
+
+    public List<ReporteSigno> getReporte(){
+        return listaReporteSigno;
+    }
 
 
 
@@ -767,9 +778,16 @@ public class GraficadorLexico implements java_cup.runtime.Scanner {
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
             zzDoEOF();
+            switch (zzLexicalState) {
+            case ERROR_BLOQUE: {
+              guardarError(sym.EOF); return symbol(sym.EOF);
+            }  // fall though
+            case 99: break;
+            default:
               {
                 System.out.println("final del texto"); return symbol(sym.EOF);
               }
+        }
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
@@ -804,12 +822,12 @@ public class GraficadorLexico implements java_cup.runtime.Scanner {
             // fall through
           case 43: break;
           case 7:
-            { return symbol(sym.MULTIPLICACION);
+            { agregarSigno("*");return symbol(sym.MULTIPLICACION);
             }
             // fall through
           case 44: break;
           case 8:
-            { return symbol(sym.SUMA);
+            { agregarSigno("+");return symbol(sym.SUMA);
             }
             // fall through
           case 45: break;
@@ -819,12 +837,12 @@ public class GraficadorLexico implements java_cup.runtime.Scanner {
             // fall through
           case 46: break;
           case 10:
-            { return symbol(sym.RESTA);
+            { agregarSigno("-");return symbol(sym.RESTA);
             }
             // fall through
           case 47: break;
           case 11:
-            { return symbol(sym.DIVISION);
+            { agregarSigno("/");return symbol(sym.DIVISION);
             }
             // fall through
           case 48: break;
@@ -879,7 +897,7 @@ public class GraficadorLexico implements java_cup.runtime.Scanner {
             // fall through
           case 58: break;
           case 22:
-            { cambiarCadena(yytext());guardarError();yybegin(YYINITIAL);
+            { cambiarCadena(yytext());guardarError(10);yybegin(YYINITIAL);
             }
             // fall through
           case 59: break;

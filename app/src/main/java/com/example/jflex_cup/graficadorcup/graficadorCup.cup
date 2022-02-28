@@ -1,6 +1,6 @@
 /*SECCIÓN 1: CÓDIGO*/
 /*CODIGO PARA LA CREACIÓN DEL CUP:
-java -jar java-cup-11b.jar -parser GraficadorCup /home/ameri/Escritorio/2022/compis_uno/Graficador/app/src/main/java/com/ameri/jflex_cup/graficadorcup/graficadorCup.cup
+java -jar java-cup-11b.jar -parser GraficadorCup /home/ameri/Escritorio/2022/compis_uno/Graficador/app/src/main/java/com/example/jflex_cup/graficadorcup/graficadorCup.cup
 */
 
 /* TEXTO PARA PRUEBAS
@@ -49,7 +49,7 @@ parser code {:
     }
 
     public void syntax_error(Symbol cur_token) {
-
+        listaErrores.add(new ErrorObj(ErrorType.SINTACTICO, sym.terminalNames[cur_token.sym],"valor no esperado", cur_token.left, cur_token.right));
     }
 
     public void unrecovered_syntax_error(Symbol cur_token) {
@@ -195,6 +195,8 @@ parser code {:
     public Graficador getGraficador(){
         return graficador;
     }
+
+
 :}
 
 /*SECCIÓN DE TERMINALES*/
@@ -225,23 +227,14 @@ start with D;
 
 D ::= DEF G D
     | DEF G
+    | error DEF
+    | error LLAVE_C
+    | error PUNTO_COMA
     ;
 
 G ::= BARRAS LLAVE_A BA LLAVE_C                                 {:crearBarras();:}
     | PIE LLAVE_A PA LLAVE_C                                    {:crearPie();:}
-    | error LLAVE_A                                             {:agregarError(cur_token, "Se esperaba '{''");:}
-    | error LLAVE_C                                             {:agregarError(cur_token, "Se esperaba '}''");:}
-    | error DOS_PUNTOS                                          {:agregarError(cur_token, "Se esperaba ':''");:}
-    | error PUNTO_COMA                                          {:agregarError(cur_token, "Se esperaba ';''");:}
-    | error CORCHETE_A                                          {:agregarError(cur_token, "Se esperaba '[''");:}
-    | error CORCHETE_C                                          {:agregarError(cur_token, "Se esperaba '}''");:}
-    | error SUMA                                                {:agregarError(cur_token, "Se esperaba '+''");:}
-    | error RESTA                                               {:agregarError(cur_token, "Se esperaba '-''");:}
-    | error MULTIPLICACION                                      {:agregarError(cur_token, "Se esperaba '*''");:}
-    | error DIVISION                                            {:agregarError(cur_token, "Se esperaba '/''");:}
-    | error PARENTESIS_A                                        {:agregarError(cur_token, "Se esperaba '(''");:}
-    | error PARENTESIS_C                                        {:agregarError(cur_token, "Se esperaba ')''");:}
-    | error COMA                                                {:agregarError(cur_token, "Se esperaba ',''");:}
+
     ;
 
 BA ::= T BA                                                 {:tituloCreado = true;:}

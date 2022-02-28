@@ -13,6 +13,8 @@ public class Graficador implements  Serializable {
     private List<String> etiqueta;
     private List<Double> valor;
     private List<Tupla> tuplas;
+    private int barrasContador = 0;
+    private int pieContador = 0;
     private List<Grafica> graficas;
     private Tipo tipo;
     private Double total;
@@ -69,6 +71,22 @@ public class Graficador implements  Serializable {
         valor.add(expd);
     }
 
+    public int getBarrasContador() {
+        return barrasContador;
+    }
+
+    public void setBarrasContador(int barrasContador) {
+        this.barrasContador = barrasContador;
+    }
+
+    public int getPieContador() {
+        return pieContador;
+    }
+
+    public void setPieContador(int pieContador) {
+        this.pieContador = pieContador;
+    }
+
     public void agregarTupla(Integer e1, Integer e2){
         System.out.println("e1 + e2 = " + e1 + e2);
         tuplas.add(new Tupla(e1, e2));
@@ -110,6 +128,12 @@ public class Graficador implements  Serializable {
             for(Grafica grafica: graficas){
                 if(grafica.titulo.equals(eGrafica)){
                     graficaList.add(grafica);
+                    if(grafica instanceof Barra){
+                        barrasContador++;
+
+                    } else{
+                        pieContador++;
+                    }
                     break;
                 }
             }
@@ -121,5 +145,7 @@ public class Graficador implements  Serializable {
     public List<Grafica> getGraficas() {
         return graficas;
     }
+
+
 
 }

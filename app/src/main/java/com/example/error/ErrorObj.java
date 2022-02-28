@@ -1,6 +1,8 @@
 package com.example.error;
 
-public class ErrorObj {
+import java.io.Serializable;
+
+public class ErrorObj implements Serializable {
 
     private ErrorType errorType;
     private String lexema;

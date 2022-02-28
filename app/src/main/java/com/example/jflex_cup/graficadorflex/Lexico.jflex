@@ -6,6 +6,7 @@ import com.example.jflex_cup.graficadorcup.sym;
 import com.example.error.*;
 import java.util.ArrayList;
 import java.util.List;
+import com.example.reportes.ReporteSigno;
 
 %%
 
@@ -58,6 +59,7 @@ LLAVE_C = "}"
 
 %{
     String cadenaTemporal = "";
+    List<ReporteSigno> listaReporteSigno = new ArrayList<>();
 
     private void cambiarCadena(String yytext){
         cadenaTemporal+=yytext;
@@ -80,10 +82,12 @@ LLAVE_C = "}"
         return symbol;
     }
 
-    private void guardarError(){
+    private void guardarError(int token){
 
-        listaErrores.add(new ErrorObj(ErrorType.LEXICO,cadenaTemporal,"Este simbolo no existe en el lenguaje", yyline+1, yycolumn+1));
-        cadenaTemporal = "";
+        if(token != sym.EOF || !cadenaTemporal.equals("")){
+            listaErrores.add(new ErrorObj(ErrorType.LEXICO,cadenaTemporal,"simbolo no reconocido", yyline+1, yycolumn+1));
+            cadenaTemporal = "";
+        }
     }
 
     public List<ErrorObj> getListaErrores(){
@@ -91,6 +95,13 @@ LLAVE_C = "}"
     }
 
 
+    private void agregarSigno(String cadena){
+        listaReporteSigno.add(new ReporteSigno(cadena, yyline+1, yycolumn+1));
+    }
+
+    public List<ReporteSigno> getReporte(){
+        return listaReporteSigno;
+    }
 
 
 %}
@@ -119,10 +130,10 @@ LLAVE_C = "}"
     {EXTRA}                         {return symbol(sym.EXTRA);}
     {ENTERO}                        {return symbol(sym.ENTERO, new Integer(yytext()));}
     {DECIMAL}                       {return symbol(sym.DECIMAL, new Double(yytext()));}
-    {SUMA}                          {return symbol(sym.SUMA);}
-    {RESTA}                         {return symbol(sym.RESTA);}
-    {MULTIPLICACION}                {return symbol(sym.MULTIPLICACION);}
-    {DIVISION}                      {return symbol(sym.DIVISION);}
+    {SUMA}                          {agregarSigno("+");return symbol(sym.SUMA);}
+    {RESTA}                         {agregarSigno("-");return symbol(sym.RESTA);}
+    {MULTIPLICACION}                {agregarSigno("*");return symbol(sym.MULTIPLICACION);}
+    {DIVISION}                      {agregarSigno("/");return symbol(sym.DIVISION);}
     {DOS_PUNTOS}                    {return symbol(sym.DOS_PUNTOS);}
     {PUNTO_COMA}                    {return symbol(sym.PUNTO_COMA);}
     {PARENTESIS_A}                  {return symbol(sym.PARENTESIS_A);}
@@ -146,6 +157,7 @@ LLAVE_C = "}"
 <<EOF>>                             {System.out.println("final del texto"); return symbol(sym.EOF);}
 
 <ERROR_BLOQUE>{
-    {BLANCO}                        {cambiarCadena(yytext());guardarError();yybegin(YYINITIAL);}
+    {BLANCO}                        {cambiarCadena(yytext());guardarError(10);yybegin(YYINITIAL);}
     [^]                             {cambiarCadena(yytext());}
+    <<EOF>>                         {guardarError(sym.EOF); return symbol(sym.EOF);}
 }
