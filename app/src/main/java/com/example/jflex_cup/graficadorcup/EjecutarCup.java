@@ -34,7 +34,8 @@ public class EjecutarCup extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\002\000\002\002\004\000\002\002\007" });
+    "\000\003\000\002\002\004\000\002\002\007\000\002\002" +
+    "\010" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -42,10 +43,11 @@ public class EjecutarCup extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\010\000\004\004\004\001\002\000\004\006\007\001" +
+    "\000\011\000\004\004\004\001\002\000\004\006\007\001" +
     "\002\000\004\002\006\001\002\000\004\002\001\001\002" +
     "\000\004\010\010\001\002\000\004\005\011\001\002\000" +
-    "\004\007\012\001\002\000\004\002\000\001\002" });
+    "\004\007\012\001\002\000\006\002\000\004\004\001\002" +
+    "\000\004\002\uffff\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -53,9 +55,10 @@ public class EjecutarCup extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\010\000\004\002\004\001\001\000\002\001\001\000" +
+    "\000\011\000\004\002\004\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001" });
+    "\001\001\000\002\001\001\000\004\002\012\001\001\000" +
+    "\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -177,6 +180,18 @@ class CUP$EjecutarCup$actions {
 		String cadena = (String)((java_cup.runtime.Symbol) CUP$EjecutarCup$stack.elementAt(CUP$EjecutarCup$top-2)).value;
 		agregarGraficaEjecutar(cadena);
               CUP$EjecutarCup$result = parser.getSymbolFactory().newSymbol("EJ",0, ((java_cup.runtime.Symbol)CUP$EjecutarCup$stack.elementAt(CUP$EjecutarCup$top-4)), ((java_cup.runtime.Symbol)CUP$EjecutarCup$stack.peek()), RESULT);
+            }
+          return CUP$EjecutarCup$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 2: // EJ ::= EJECUTAR PARENTESIS_A CADENA PARENTESIS_C PUNTO_COMA EJ 
+            {
+              Object RESULT =null;
+		int cadenaleft = ((java_cup.runtime.Symbol)CUP$EjecutarCup$stack.elementAt(CUP$EjecutarCup$top-3)).left;
+		int cadenaright = ((java_cup.runtime.Symbol)CUP$EjecutarCup$stack.elementAt(CUP$EjecutarCup$top-3)).right;
+		String cadena = (String)((java_cup.runtime.Symbol) CUP$EjecutarCup$stack.elementAt(CUP$EjecutarCup$top-3)).value;
+		agregarGraficaEjecutar(cadena);
+              CUP$EjecutarCup$result = parser.getSymbolFactory().newSymbol("EJ",0, ((java_cup.runtime.Symbol)CUP$EjecutarCup$stack.elementAt(CUP$EjecutarCup$top-5)), ((java_cup.runtime.Symbol)CUP$EjecutarCup$stack.peek()), RESULT);
             }
           return CUP$EjecutarCup$result;
 

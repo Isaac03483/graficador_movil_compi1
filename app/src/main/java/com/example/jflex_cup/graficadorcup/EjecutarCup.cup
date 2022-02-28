@@ -69,4 +69,5 @@ start with EJ;
 
 
 EJ ::= EJECUTAR PARENTESIS_A CADENA:cadena PARENTESIS_C PUNTO_COMA          {:agregarGraficaEjecutar(cadena);:}
+    | EJECUTAR PARENTESIS_A CADENA:cadena PARENTESIS_C PUNTO_COMA EJ        {:agregarGraficaEjecutar(cadena);:}
     ;

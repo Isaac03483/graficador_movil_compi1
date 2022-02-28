@@ -17,7 +17,7 @@ Def Pie{
     total: 25;
     etiquetas: ["Compis 1", "Compis 2"];
     valores:[5, 10];
-    unir:[{1,2},{1,1}];
+    unir:[{0,0},{1,1}];
     extra: "resto";
 }
 

@@ -7,16 +7,5 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_gravity="center_horizontal"
-        tools:context=".GraficasActivity">
-
-    <com.github.mikephil.charting.charts.BarChart
-            android:layout_width="match_parent"
-            android:layout_height="359dp"
-            android:id="@+id/barras"
-    />
-    <com.github.mikephil.charting.charts.PieChart
-            android:layout_width="match_parent"
-            android:layout_height="329dp"
-            android:id="@+id/pies"
-    />
-</LinearLayout>
+        tools:context=".GraficasActivity"
+        android:id="@+id/linearLayout"/>
