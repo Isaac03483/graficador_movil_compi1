@@ -356,7 +356,7 @@ public class GraficadorLexico implements java_cup.runtime.Scanner {
     private void guardarError(int token){
 
         if(token != sym.EOF || !cadenaTemporal.equals("")){
-            listaErrores.add(new ErrorObj(ErrorType.LEXICO,cadenaTemporal,"Este simbolo no existe en el lenguaje", yyline+1, yycolumn+1));
+            listaErrores.add(new ErrorObj(ErrorType.LEXICO,cadenaTemporal,"simbolo no reconocido", yyline+1, yycolumn+1));
             cadenaTemporal = "";
         }
     }

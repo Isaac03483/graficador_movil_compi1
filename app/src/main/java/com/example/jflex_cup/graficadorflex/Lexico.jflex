@@ -59,6 +59,7 @@ LLAVE_C = "}"
 
 %{
     String cadenaTemporal = "";
+    int inicioColumna = 0;
     List<ReporteSigno> listaReporteSigno = new ArrayList<>();
 
     private void cambiarCadena(String yytext){
@@ -85,7 +86,7 @@ LLAVE_C = "}"
     private void guardarError(int token){
 
         if(token != sym.EOF || !cadenaTemporal.equals("")){
-            listaErrores.add(new ErrorObj(ErrorType.LEXICO,cadenaTemporal,"simbolo no reconocido", yyline+1, yycolumn+1));
+            listaErrores.add(new ErrorObj(ErrorType.LEXICO,cadenaTemporal,"simbolo no reconocido", yyline+1, inicioColumna));
             cadenaTemporal = "";
         }
     }
@@ -103,6 +104,10 @@ LLAVE_C = "}"
         return listaReporteSigno;
     }
 
+
+    private void obtenerComienzoError(int valor){
+        inicioColumna = valor;
+    }
 
 %}
 %%
@@ -142,7 +147,7 @@ LLAVE_C = "}"
     {CORCHETE_C}                    {return symbol(sym.CORCHETE_C);}
     {LLAVE_A}                       {return symbol(sym.LLAVE_A);}
     {LLAVE_C}                       {return symbol(sym.LLAVE_C);}
-    [^]                             {cambiarCadena(yytext());yybegin(ERROR_BLOQUE);}
+    [^]                             {obtenerComienzoError(yycolumn+1);cambiarCadena(yytext());yybegin(ERROR_BLOQUE);}
 }
 
 <CADENA_BLOQUE>{

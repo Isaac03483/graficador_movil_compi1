@@ -330,6 +330,7 @@ public class GraficadorLexico implements java_cup.runtime.Scanner {
 
   /* user code: */
     String cadenaTemporal = "";
+    int inicioColumna = 0;
     List<ReporteSigno> listaReporteSigno = new ArrayList<>();
 
     private void cambiarCadena(String yytext){
@@ -356,7 +357,7 @@ public class GraficadorLexico implements java_cup.runtime.Scanner {
     private void guardarError(int token){
 
         if(token != sym.EOF || !cadenaTemporal.equals("")){
-            listaErrores.add(new ErrorObj(ErrorType.LEXICO,cadenaTemporal,"simbolo no reconocido", yyline+1, yycolumn+1));
+            listaErrores.add(new ErrorObj(ErrorType.LEXICO,cadenaTemporal,"simbolo no reconocido", yyline+1, inicioColumna));
             cadenaTemporal = "";
         }
     }
@@ -374,6 +375,10 @@ public class GraficadorLexico implements java_cup.runtime.Scanner {
         return listaReporteSigno;
     }
 
+
+    private void obtenerComienzoError(int valor){
+        inicioColumna = valor;
+    }
 
 
 
@@ -792,7 +797,7 @@ public class GraficadorLexico implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { cambiarCadena(yytext());yybegin(ERROR_BLOQUE);
+            { obtenerComienzoError(yycolumn+1);cambiarCadena(yytext());yybegin(ERROR_BLOQUE);
             }
             // fall through
           case 38: break;
